@@ -28,7 +28,7 @@ namespace DM.Backend.BL
             degree = stu.Degree();
         }
 
-        private string Password() => this.password;
+        public string Password() => this.password;
 
         public Student(string name, int id, int years, string degName,string pass,int credit)
         {
@@ -52,23 +52,23 @@ namespace DM.Backend.BL
         {
             degree = new Degree(name, years, expectedAvg,credits);
         }
-        private void addCourse(int sem, Course course)
+        public void addCourse(int sem, Course course)
         {
 
             degree.addCourse(sem, course);
         }
-        private void addCourse(int sem, string name, int credit)
+        public void addCourse(int sem, string name, int credit)
         {
             int year = sem / 2;
             int semester = sem - (2 - (year - 1));
             degree.addCourse(sem, name, credit);
         }
-        private void addCourse(int year, int sem, string name, int credit)
+        public void addCourse(int year, int sem, string name, int credit)
         {
            
             degree.addCourse(year,sem, name, credit);
         }
-        private void addCourse(int year, int sem, Course course)
+        public void addCourse(int year, int sem, Course course)
         {
             degree.addCourse(year, sem,course);
         }

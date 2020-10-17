@@ -107,7 +107,7 @@ namespace DM.Backend.BL
             return false;
         }
 
-        private bool hasBlocker(KeyValuePair<string, Course> block)
+        public bool hasBlocker(KeyValuePair<string, Course> block)
         {
             return blockers.ContainsKey(block.Key);
         }
