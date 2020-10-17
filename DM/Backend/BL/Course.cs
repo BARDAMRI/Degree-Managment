@@ -29,8 +29,7 @@ namespace DM.Backend.BL
                 addBlocker(new Course(co.Value));
             }
         }
-
-        private Dictionary<string, Course> Blockers() => this.blockers;
+        public Dictionary<string, Course> Blockers() => this.blockers;
 
         public void setName(string name) 
         { 

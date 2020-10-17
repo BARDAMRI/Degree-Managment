@@ -7,60 +7,80 @@ using DM.Backend.SL;
 
 namespace DM.Backend.BL.Tests
 {
-    [TestClass()]
     public class courseTest
     {
-        [TestMethod()]
+        public Course course1;
 
-        [TestMethod()]
+        [SetUp]
+        public void setup()
+        {
+            course1 = new Course("calculus",6);
+
+        }
+        [Test]
         public void setNameTest()
         {
-            Assert.Fail();
+            course1.setName("calculus2");
+            Assert.AreEqual(course1.Name(), "calculus2","failed tochange course name");
         }
 
-        [TestMethod()]
+        [Test]
         public void addBlockerTest()
         {
-            Assert.Fail();
+            Course course2 = new Course("calculus2", 5);
+            course1.addBlocker(course2);
+            Assert.AreEqual(course1.Blockers()["calculus2"],course2,"fail to add blocker");
         }
 
-        [TestMethod()]
+        [Test]
         public void removeBlockerTest()
         {
-            Assert.Fail();
+            Course course2 = new Course("calculus2", 5);
+            course1.addBlocker(course2);
+            course1.removeBlocker(course2);
+            bool ans = course1.Blockers().ContainsKey("calculus2");
+            Assert.AreEqual(ans, false, "fail to remove blocker");
         }
 
-        [TestMethod()]
+        [Test]
         public void removeBlockerTest1()
         {
-            Assert.Fail();
+            Course course2 = new Course("calculus2", 5);
+            course1.addBlocker(course2);
+            course1.removeBlocker("calculus2");
+            bool ans = course1.Blockers().ContainsKey("calculus2");
+            Assert.AreEqual(ans, false, "fail to remove blocker");
         }
 
-        [TestMethod()]
+        [Test]
         public void isBlockerTest()
         {
-            Assert.Fail();
+            Course course2 = new Course("calculus2", 5);
+            course1.addBlocker(course2);
+            bool ans = course1.isBlocker("calculus2");
+            Assert.AreEqual(ans, true, "fail to check blocker");
         }
 
-        [TestMethod()]
+        [Test]
         public void setCreditTest()
         {
-            Assert.Fail();
+            course1.setCredit(7);
+            Assert.AreEqual(course1.Credit(), 7, "failed tochange course credit");
         }
 
-        [TestMethod()]
+        [Test]
         public void setGradeTest()
         {
             Assert.Fail();
         }
 
-        [TestMethod()]
+        [Test]
         public void EqualsTest()
         {
             Assert.Fail();
         }
 
-        [TestMethod()]
+        [Test]
         public void hasBlockerTest()
         {
             Assert.Fail();
