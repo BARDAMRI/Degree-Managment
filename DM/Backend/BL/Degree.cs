@@ -7,6 +7,7 @@ namespace DM.Backend.BL
 {
     class Degree
     {
+        private string name;
         private Year[] years;
         private int credit;
         private double average;
@@ -14,8 +15,9 @@ namespace DM.Backend.BL
         private double difference;
         private double donePrecents;
         
-        public Degree(int years)
+        public Degree(string name, int years)
         {
+            this.name = name;
             this.years = new Year[years];
             for(int i=0;i<=years;i++)
             {
@@ -27,8 +29,9 @@ namespace DM.Backend.BL
             this.expectAverage = 0;
             this.difference = 0;
         }
-        public Degree(int years,int exp)
+        public Degree(string name,int years,int exp)
         {
+            this.name = name;
             this.years = new Year[years];
             for (int i = 0; i <= years; i++)
             {
@@ -42,6 +45,7 @@ namespace DM.Backend.BL
         }
         public Degree(Degree deg)
         {
+            this.name = deg.Name();
             this.years = new Year[deg.Years().Length];
             for (int i = 0; i <= deg.Years().Length; i++)
             {
@@ -53,6 +57,8 @@ namespace DM.Backend.BL
             this.expectAverage = deg.ExpectAverage();
             this.difference = deg.Difference();
         }
+
+        private string Name() => this.name;
 
         private double ExpectAverage() => this.expectAverage;
 
