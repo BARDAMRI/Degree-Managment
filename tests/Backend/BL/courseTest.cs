@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Moq;
 using DM.Backend.BL;
 using DM.Backend.SL;
-
+using Castle.Core.Internal;
 
 namespace DM.Backend.BL.Tests
 {
@@ -65,25 +65,31 @@ namespace DM.Backend.BL.Tests
         public void setCreditTest()
         {
             course1.setCredit(7);
-            Assert.AreEqual(course1.Credit(), 7, "failed tochange course credit");
+            Assert.AreEqual(course1.Credit(), 7, "failed to change course credit");
         }
 
         [Test]
         public void setGradeTest()
         {
-            Assert.Fail();
+            course1.setGrade(80);
+            Assert.AreEqual(course1.Grade(), 80, "failed to set course grade");
         }
 
         [Test]
         public void EqualsTest()
         {
-            Assert.Fail();
+            Course course2 = new Course("calculus", 6);
+            course1.setGrade(80);
+            course2.setGrade(80);
+            Assert.IsTrue(course1.Equals(course2), "failed to compare courses");
         }
 
         [Test]
         public void hasBlockerTest()
         {
-            Assert.Fail();
+            Course course2 = new Course("calculus2", 5);
+            course1.addBlocker(course2);
+            Assert.IsTrue(course1.Blockers().IsNullOrEmpty(), "fail to check blockers existance");
         }
     }
 }

@@ -1,0 +1,9 @@
+C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\netstandard2.1\DM.deps.json
+C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\netstandard2.1\DM.dll
+C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\netstandard2.1\DM.pdb
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\netstandard2.1\DM.csprojAssemblyReference.cache
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\netstandard2.1\DM.csproj.CoreCompileInputs.cache
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\netstandard2.1\DM.AssemblyInfoInputs.cache
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\netstandard2.1\DM.AssemblyInfo.cs
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\netstandard2.1\DM.dll
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\netstandard2.1\DM.pdb
