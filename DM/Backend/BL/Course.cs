@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("DMTest")]
 
 namespace DM.Backend.BL
 {
@@ -46,7 +49,7 @@ namespace DM.Backend.BL
         }
         public void removeBlocker(Course course)
         {
-            if (isBlocker(name))
+            if (isBlocker(course.Name()))
             {
                 blockers.Remove(course.Name());
             }

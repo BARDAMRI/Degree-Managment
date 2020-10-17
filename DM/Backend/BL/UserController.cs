@@ -15,7 +15,7 @@ namespace DM.Backend.BL
             this.users = new Dictionary<int, Student>();
             logged = null;
         }
-        public Student logIn(int id, string password)
+        public Student login(int id, string password)
         {
             if (logged == null)
             {
@@ -24,7 +24,7 @@ namespace DM.Backend.BL
             }
             throw new DException("A user is already sighned in");
         }
-        public void Logout(int id, string password)
+        public void logout(int id)
         {
             if (logged.Id() == id)
             {
@@ -60,7 +60,7 @@ namespace DM.Backend.BL
             else
                 throw new DException("Student is not logged in");
         }
-        private void addCourse(int id, int sem, Course course)
+        public void addCourse(int id, int sem, Course course)
         {
             if (isLogged(id))
                 users[id].addCourse(sem, course);
@@ -68,7 +68,7 @@ namespace DM.Backend.BL
             else
                 throw new DException("Student is not logged in");
         }
-        private void addCourse(int id,  int sem, string name, int credit)
+        public void addCourse(int id,  int sem, string name, int credit)
         {
             if (isLogged(id))
                 users[id].addCourse(sem, name, credit);
@@ -77,7 +77,7 @@ namespace DM.Backend.BL
                 throw new DException("Student is not logged in");
           
         }
-        private void addCourse(int id,  int year, int sem, string name, int credit)
+        public void addCourse(int id,  int year, int sem, string name, int credit)
         {
             if (isLogged(id))
                 users[id].addCourse(year, sem, name, credit);
@@ -85,7 +85,7 @@ namespace DM.Backend.BL
             else
                 throw new DException("Student is not logged in");
         }
-        private void addCourse(int id, int year, int sem, Course course)
+        public void addCourse(int id, int year, int sem, Course course)
         {
             if (isLogged(id))
                 users[id].addCourse(year, sem, course);
@@ -201,7 +201,7 @@ namespace DM.Backend.BL
             else
                 throw new DException("Student is not logged in");
         }
-        private bool isLegalId(int id)
+        public bool isLegalId(int id)
         {
             string sid = id.ToString();
             if (sid.Length == 9)

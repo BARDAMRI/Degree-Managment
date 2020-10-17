@@ -9,7 +9,7 @@ namespace DM.Backend.BL
     public class Semester
     {
         private int number;
-        private Dictionary <string,Course> courses;
+        private IReadOnlyCollection<Course> courses;
         private int credit;
         private double average;
 

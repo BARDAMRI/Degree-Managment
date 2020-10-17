@@ -1,0 +1,6 @@
+C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\DM.dll
+C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\DM.pdb
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.csproj.CoreCompileInputs.cache
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.dll
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.pdb
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.csprojAssemblyReference.cache

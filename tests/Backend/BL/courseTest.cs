@@ -2,10 +2,9 @@
 using NUnit.Framework;
 using Moq;
 using DM.Backend.BL;
-using DM.Backend.SL;
 using Castle.Core.Internal;
 
-namespace DM.Backend.BL.Tests
+namespace tests
 {
     public class courseTest
     {
