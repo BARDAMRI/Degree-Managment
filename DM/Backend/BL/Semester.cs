@@ -19,9 +19,19 @@ namespace DM.Backend.BL
             this.average = 0;
             this.credit = 0;
             this.courses = new Dictionary<string, Course>();
-
         }
-         public void setNumber(int num)
+        public Semester(Semester sem)
+        {
+            this.number = sem.Number();
+            this.average = sem.Average() ;
+            this.credit = sem.Credit();
+            this.courses = new Dictionary<string, Course>();
+            foreach (KeyValuePair<string, Course> co in sem.Courses())
+            {
+                addCourse(new Course(co.Value));
+            }
+        }
+        public void setNumber(int num)
         {
             this.number = num;
         }
@@ -33,8 +43,6 @@ namespace DM.Backend.BL
          public bool addCourse(String name, int credits)
         {
             courses.Add(name,new Course(name, credits));
-            setAverage(courses[name].Grade(),credits);
-            this.credit += credits;
             return true;
 
         }
@@ -89,7 +97,7 @@ namespace DM.Backend.BL
         public int Credit() => this.credit;
         protected void setAverage(int grade, int credit)
         {
-            if (grade >= 0)
+            if (grade >= 0 && credit > 0)
             {
                 double sum = Average() * Credit();
                 sum += (credit * grade);

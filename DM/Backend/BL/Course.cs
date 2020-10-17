@@ -19,6 +19,19 @@ namespace DM.Backend.BL
             blockers = new Dictionary<string, Course>();
 
         }
+        public Course(Course cou)
+        {
+            this.name = cou.Name();
+            this.credit = cou.Credit();
+            this.grade = cou.Grade();
+            foreach (KeyValuePair<string, Course> co in cou.Blockers())
+            {
+                addBlocker(new Course(co.Value));
+            }
+        }
+
+        private Dictionary<string, Course> Blockers() => this.blockers;
+
         public void setName(string name) 
         { 
             this.name = name; 

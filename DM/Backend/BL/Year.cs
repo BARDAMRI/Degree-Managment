@@ -14,11 +14,27 @@ namespace DM.Backend.BL
 
         public Year(int num)
         {
+            semesters = new Semester[2];
             this.number = num;
             this.average = 0;
             this.credit = 0;
             semesters = new Semester[2];
         }
+        public Year(Year ye)
+        {
+            semesters = new Semester[ye.Semesters().Length];
+            this.number = ye.Number();
+            this.average = ye.Average() ;
+            this.credit = ye.Credit();
+            foreach(Semester sem in ye.Semesters())
+            {
+                semesters[(sem.Number() - 1)] = new Semester(sem);
+
+            }
+        }
+
+        public Semester [] Semesters() => this.semesters;
+
         public void setNumber(int num)
         {
             this.number = num;
@@ -105,12 +121,15 @@ namespace DM.Backend.BL
         protected void setAverage()
         {
             double sum=0;
-           for(int i=0; i<=semesters.Length;i++)
+            int cred = 0;
+            foreach(Semester sem in semesters)
             {
-                sum += (semesters[i].Average() * semesters[i].Credit());
-                sum /= Credit();
-                this.average = sum;
+                cred += sem.Credit();
+                sum += sem.Average();
             }
+                sum /= cred;
+                this.average = sum;
+            
         }
 
     }
