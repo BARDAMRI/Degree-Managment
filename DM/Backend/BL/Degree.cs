@@ -14,9 +14,11 @@ namespace DM.Backend.BL
         private double expectAverage;
         private double difference;
         private double donePrecents;
+        private int totalCredit;
         
-        public Degree(string name, int years)
+        public Degree(string name, int years,int credit)
         {
+            this.totalCredit = credit;
             this.name = name;
             this.years = new Year[years];
             for(int i=0;i<=years;i++)
@@ -29,8 +31,9 @@ namespace DM.Backend.BL
             this.expectAverage = 0;
             this.difference = 0;
         }
-        public Degree(string name,int years,int exp)
+        public Degree(string name,int years,int exp,int credit)
         {
+            this.totalCredit = credit;
             this.name = name;
             this.years = new Year[years];
             for (int i = 0; i <= years; i++)
