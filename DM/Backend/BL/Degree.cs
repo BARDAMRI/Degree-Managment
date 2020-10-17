@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Text;
 using DM.Backend.BL;
 
@@ -60,7 +61,134 @@ namespace DM.Backend.BL
             this.expectAverage = deg.ExpectAverage();
             this.difference = deg.Difference();
         }
+        private void addCourse(int sem,Course course)
+        {
+            int year = sem / 2;
+            int semester = sem - (2 - (year - 1));
+            years[year].addCourse(semester,course);
+        }
+        private void addCourse(int sem, string name,int credit)
+        {
+            int year = sem / 2;
+            int semester = sem - (2 - (year - 1));
+            years[year].addCourse(semester,  name,  credit);
+        }
+        private void addCourse(int year, int sem, string name, int credit)
+        {
+            int semester = sem - (2 - (year - 1));
+            years[year].addCourse(semester, name,  credit);
+        }
+        private void addCourse(int year,int sem, Course course)
+        {
+            int semester = sem - (2 - (year - 1));
+            years[year].addCourse(semester, course);
+        }
+        public void addSemester(Semester sem)
+        {
+            int year = sem.Number() / 2;
+            years[year].addSemester(sem);
+        }
+        public void addSemester(int sem)
+        {
+            int year = sem / 2;
+            years[year].addSemester(sem);
+        }
+        public double getDifference() => this.difference;
 
+        public void deleteSemester(int sem)
+        {
+            int year = sem / 2;
+            years[year].deleteSemester(sem);
+        }
+        public void deleteSemester(Semester sem)
+        {
+            int year = sem.Number() / 2;
+            years[year].deleteSemester(sem);
+        }
+        public bool deleteCourse(string name)
+        {
+            for (int i = 0; i <= years.Length; i++)
+            {
+                if (years[i].hasCourse(name))
+                {
+                    years[i].deleteCourse(name);
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool deleteCourse(Course cour)
+        {
+            string name = cour.Name();
+            for (int i = 0; i <= years.Length; i++)
+            {
+                if (years[i].hasCourse(name))
+                {
+                    years[i].deleteCourse(name);
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool setGrade(string course, int grade)
+        {
+            for (int i = 0; i <= years.Length; i++)
+            {
+                if (years[i].hasCourse(course))
+                {
+                    years[i].setGrade(course,grade);
+                    setAverage();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void setAverage()
+        {
+            double sum = 0;
+            int cred = 0;
+            foreach (Year year in years)
+            {
+                cred += year.Credit();
+                sum += year.Average();
+            }
+            sum /= cred;
+            this.average = sum;
+
+        }
+
+        public Semester getSemester(int sem)
+        {
+            int year= sem / 2;
+            int semester= (sem-1)% 2;
+            return years[year].getSemester(semester);
+        }
+        public Course getCourse(Course cour)
+        {
+            string name = cour.Name();
+            for (int i = 0; i <= years.Length; i++)
+            {
+                if (years[i].hasCourse(name))
+                {
+                   return years[i].getCourse(name);
+                }
+            }
+            return null;
+        }
+        public Course getCourse(string cour)
+        {
+            for (int i = 0; i <= years.Length; i++)
+            {
+                if (years[i].hasCourse(cour))
+                {
+                    return years[i].getCourse(cour);
+                }
+            }
+            return null;
+        }
+        public int TotalCredit() => this.totalCredit;
+        public double DonePrecent() => this.donePrecents;
         private string Name() => this.name;
 
         private double ExpectAverage() => this.expectAverage;

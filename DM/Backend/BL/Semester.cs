@@ -139,6 +139,19 @@ namespace DM.Backend.BL
             }
             return false;
         }
+
+        internal bool hasCourse(string name)
+        {
+            foreach (KeyValuePair<string, Course> cour in courses)
+            {
+                if (cour.Key==name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public Dictionary<string, Course> Courses() => this.courses;
         private bool hasCourse(KeyValuePair<string, Course> course)
         {

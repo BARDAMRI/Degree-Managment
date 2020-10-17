@@ -19,6 +19,10 @@ namespace DM.Backend.BL
             this.average = 0;
             this.credit = 0;
             semesters = new Semester[2];
+            for(int i=1;i<=semesters.Length;i++)
+            {
+                semesters[i-1] = new Semester(2*(number-1)+i);
+            }
         }
         public Year(Year ye)
         {
@@ -55,6 +59,17 @@ namespace DM.Backend.BL
                 semesters[sem.Number()] = sem;
             }
         }
+        public void addSemester(int sem)
+        {
+            int semester = sem % 2;
+            if (semester == 1) semester--;
+            else semester++;
+            
+                if (semesters[semester] == null)
+                {
+                    semesters[semester] = new Semester(sem);
+                }
+        }
         public Semester getSemester(int sem) => this.semesters[sem];
         public Semester deleteSemester(Semester sem)
         {
@@ -80,6 +95,17 @@ namespace DM.Backend.BL
 
         }
 
+       public Semester deleteSemester(int sem)
+        {
+            if (semesters[sem]!=null)
+            {
+                Semester sem1 = semesters[sem];
+                semesters[sem] = null;
+                return sem1;
+            }
+            return null;
+        }
+
         public bool deleteCourse(String name)
         {
             for (int i = 0; i <= semesters.Length; i++)
@@ -92,6 +118,19 @@ namespace DM.Backend.BL
             }
             return false;
         }
+
+        internal bool hasCourse(string name)
+        {
+            foreach(Semester  sem in semesters )
+            {
+                if(sem.hasCourse(name))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public Course getCourse(String name)
         {
             for (int i = 0; i <= semesters.Length; i++)
@@ -129,7 +168,6 @@ namespace DM.Backend.BL
             }
                 sum /= cred;
                 this.average = sum;
-            
         }
 
     }
