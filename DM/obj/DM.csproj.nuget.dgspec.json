@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\barda\\source\\repos\\Degree-Managment\\DM\\DM.csproj": {}
+    "C:\\Users\\barda\\Source\\Repos\\Degree-Managment\\DM\\DM.csproj": {}
   },
   "projects": {
-    "C:\\Users\\barda\\source\\repos\\Degree-Managment\\DM\\DM.csproj": {
+    "C:\\Users\\barda\\Source\\Repos\\Degree-Managment\\DM\\DM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\barda\\source\\repos\\Degree-Managment\\DM\\DM.csproj",
+        "projectUniqueName": "C:\\Users\\barda\\Source\\Repos\\Degree-Managment\\DM\\DM.csproj",
         "projectName": "DM",
-        "projectPath": "C:\\Users\\barda\\source\\repos\\Degree-Managment\\DM\\DM.csproj",
+        "projectPath": "C:\\Users\\barda\\Source\\Repos\\Degree-Managment\\DM\\DM.csproj",
         "packagesPath": "C:\\Users\\barda\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\barda\\source\\repos\\Degree-Managment\\DM\\obj\\",
+        "outputPath": "C:\\Users\\barda\\Source\\Repos\\Degree-Managment\\DM\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
