@@ -42,6 +42,8 @@ namespace DM.Backend.BL
             {
                 this.blockers.Add(course.Name(), course);
             }
+            else
+                throw new DException("blocker already exists");
         }
         public void removeBlocker(Course course)
         {
@@ -49,12 +51,20 @@ namespace DM.Backend.BL
             {
                 blockers.Remove(course.Name());
             }
+            else
+            {
+                throw new DException("the course is not blocker for " + this.Name());
+            }
         }
         public void removeBlocker(string name)
         {
-            if( isBlocker(name))
+            if (isBlocker(name))
             {
                 blockers.Remove(name);
+            }
+            else
+            {
+                throw new DException("the course is not blocker for " + this.Name());
             }
         }
         public bool isBlocker(string name)
@@ -100,6 +110,11 @@ namespace DM.Backend.BL
         private bool hasBlocker(KeyValuePair<string, Course> block)
         {
             return blockers.ContainsKey(block.Key);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

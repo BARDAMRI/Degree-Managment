@@ -6,7 +6,7 @@ using DM.Backend.BL;
 
 namespace DM.Backend.BL
 {
-    class Semester
+    public class Semester
     {
         private int number;
         private Dictionary <string,Course> courses;
@@ -46,14 +46,15 @@ namespace DM.Backend.BL
             return true;
 
         }
-        public bool deleteCourse(Course course)
+        public void deleteCourse(Course course)
         {
          if(courses.ContainsKey(course.Name()))
                 {
                 courses.Remove(course.Name());
-                return true;
+                
                 }
-            return false;
+            throw new DException("the course "+ course.Name()+ " is not exists");
+
         }
         public bool containsCourse(Course course)
         {
@@ -63,14 +64,13 @@ namespace DM.Backend.BL
         {
             return courses.ContainsKey(course);
         }
-        public bool deleteCourse(String name) 
+        public void deleteCourse(String name) 
         {
             if (courses.ContainsKey(name))
             {
                 courses.Remove(name);
-                return true;
             }
-            return false;
+            throw new DException("the course " + name + " is not exists");
         }
         public void addBlocker(Course course, Course blocker)
         {
@@ -92,7 +92,14 @@ namespace DM.Backend.BL
         {
             this.courses[course].removeBlocker(blocker);
         }
-        public Course getCourse(String name) => courses[name];
+        public Course getCourse(String name)
+        {
+            if (courses.ContainsKey(name))
+            {
+                return courses[name];
+            }
+            throw new DException("the course " + name + " is not exists");
+        }
         public double Average() => this.average;
         public int Credit() => this.credit;
         protected void setAverage(int grade, int credit)
@@ -123,14 +130,14 @@ namespace DM.Backend.BL
                     equal = false;
                 foreach (KeyValuePair<string, Course> course in courses)
                 {
-                    if (!sem.hasCourse(course))
+                    if (!sem.hasCourse(course.Key))
                     {
                         equal = false;
                     }
                 }
                 foreach (KeyValuePair<string, Course> course in sem.Courses())
                 {
-                    if (!this.hasCourse(course))
+                    if (!this.hasCourse(course.Key))
                     {
                         equal = false;
                     }
@@ -153,9 +160,10 @@ namespace DM.Backend.BL
         }
 
         public Dictionary<string, Course> Courses() => this.courses;
-        private bool hasCourse(KeyValuePair<string, Course> course)
+
+        public override int GetHashCode()
         {
-            return courses.ContainsKey(course.Key);
+            return base.GetHashCode();
         }
     }
 }

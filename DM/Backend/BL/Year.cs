@@ -73,50 +73,60 @@ namespace DM.Backend.BL
         public Semester getSemester(int sem) => this.semesters[sem];
         public Semester deleteSemester(Semester sem)
         {
-            if(semesters[sem.Number()].Equals(sem))
+            bool done = false;
+            if (semesters[sem.Number()].Equals(sem))
             {
                 Semester sem1 = semesters[sem.Number()];
                 semesters[sem.Number()] = null;
                 return sem1;
             }
+            if (!done)
+                throw new DException("Semester " + sem.Number() + " is not exists");
             return null;
         }
-        public bool deleteCourse(Course course)
+        public void deleteCourse(Course course)
         {
-            for(int i=0;i<=semesters.Length;i++)
+            bool done = false;
+            for (int i=0;i<=semesters.Length;i++)
             {
                 if(semesters[i].containsCourse(course))
                 {
                     semesters[i].deleteCourse(course);
-                    return true;
+                    done = true;
                 }
             }
-            return false;
-
+            if (!done)
+                throw new DException("Course " + course.Name() + " is not exists");
         }
 
-       public Semester deleteSemester(int sem)
+        public Semester deleteSemester(int sem)
         {
+            bool done = false;
             if (semesters[sem]!=null)
             {
                 Semester sem1 = semesters[sem];
                 semesters[sem] = null;
                 return sem1;
             }
+            if (!done)
+                throw new DException("Semester " + sem + " is not exists");
             return null;
+
         }
 
-        public bool deleteCourse(String name)
+        public void deleteCourse(String name)
         {
+            bool done = false;
             for (int i = 0; i <= semesters.Length; i++)
             {
                 if (semesters[i].containsCourse(name))
                 {
                     semesters[i].deleteCourse(name);
-                    return true;
+                    done= true;
                 }
             }
-            return false;
+            if (!done)
+                throw new DException("Course " + name + " is not exists");
         }
 
         internal bool hasCourse(string name)
@@ -133,6 +143,7 @@ namespace DM.Backend.BL
 
         public Course getCourse(String name)
         {
+            bool done = false;
             for (int i = 0; i <= semesters.Length; i++)
             {
                 if (semesters[i].containsCourse(name))
@@ -140,20 +151,25 @@ namespace DM.Backend.BL
                     return semesters[i].getCourse(name);
                 }
             }
+            if (!done)
+                throw new DException("Course " + name + " is not exists");
             return null;
+
         }
-        public bool setGrade(string course, int grade)
+        public void setGrade(string course, int grade)
         {
+            bool done = false;
             for (int i = 0; i <= semesters.Length; i++)
             {
                 if (semesters[i].containsCourse(course))
                 {
                     semesters[i].setGrade(course,grade);
                     setAverage();
-                    return true;
+                    done = true;
                 }
             }
-            return false;
+            if(!done)
+            throw new DException("Course " + course + " is not exists");
         }
         public double Average() => this.average;
         public int Credit() => this.credit;

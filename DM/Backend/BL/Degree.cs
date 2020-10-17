@@ -61,24 +61,24 @@ namespace DM.Backend.BL
             this.expectAverage = deg.ExpectAverage();
             this.difference = deg.Difference();
         }
-        private void addCourse(int sem,Course course)
+        public void addCourse(int sem,Course course)
         {
             int year = sem / 2;
             int semester = sem - (2 - (year - 1));
             years[year].addCourse(semester,course);
         }
-        private void addCourse(int sem, string name,int credit)
+        public void addCourse(int sem, string name,int credit)
         {
             int year = sem / 2;
             int semester = sem - (2 - (year - 1));
             years[year].addCourse(semester,  name,  credit);
         }
-        private void addCourse(int year, int sem, string name, int credit)
+        public void addCourse(int year, int sem, string name, int credit)
         {
             int semester = sem - (2 - (year - 1));
             years[year].addCourse(semester, name,  credit);
         }
-        private void addCourse(int year,int sem, Course course)
+        public void addCourse(int year,int sem, Course course)
         {
             int semester = sem - (2 - (year - 1));
             years[year].addCourse(semester, course);
@@ -105,46 +105,59 @@ namespace DM.Backend.BL
             int year = sem.Number() / 2;
             years[year].deleteSemester(sem);
         }
-        public bool deleteCourse(string name)
+        public void deleteCourse(string name)
         {
+            bool done = false;
             for (int i = 0; i <= years.Length; i++)
             {
                 if (years[i].hasCourse(name))
                 {
                     years[i].deleteCourse(name);
-                    return true;
+                    done= true;
                 }
             }
-            return false;
+            if (!done)
+                throw new DException("Course " + name + " is not exists");
         }
-        public bool deleteCourse(Course cour)
+        public void deleteCourse(Course cour)
         {
+            bool done = false;
             string name = cour.Name();
             for (int i = 0; i <= years.Length; i++)
             {
                 if (years[i].hasCourse(name))
                 {
                     years[i].deleteCourse(name);
-                    return true;
+                    done= true;
                 }
             }
-            return false;
+            if (!done)
+                throw new DException("Course " + name + " is not exists");
         }
-        public bool setGrade(string course, int grade)
+        public void setGrade(string course, int grade)
         {
+            bool done = false;
             for (int i = 0; i <= years.Length; i++)
             {
                 if (years[i].hasCourse(course))
                 {
                     years[i].setGrade(course,grade);
                     setAverage();
-                    return true;
+                    setDiffer();
+                    setPrecent();
+                    done= true;
                 }
             }
-            return false;
+            if (!done)
+                throw new DException("Course " + course + " is not exists");
         }
 
-        private void setAverage()
+        private void setPrecent()
+        {
+            this.donePrecents = Credit() / totalCredit;
+        }
+
+        public void setAverage()
         {
             double sum = 0;
             int cred = 0;
@@ -155,7 +168,12 @@ namespace DM.Backend.BL
             }
             sum /= cred;
             this.average = sum;
+            setDiffer();
+        }
 
+        private void setDiffer()
+        {
+            this.difference = ExpectAverage() - Average();
         }
 
         public Semester getSemester(int sem)
@@ -174,7 +192,7 @@ namespace DM.Backend.BL
                    return years[i].getCourse(name);
                 }
             }
-            return null;
+                throw new DException("Course " + cour.Name() + " is not exists");
         }
         public Course getCourse(string cour)
         {
@@ -185,18 +203,18 @@ namespace DM.Backend.BL
                     return years[i].getCourse(cour);
                 }
             }
-            return null;
+            throw new DException("Course " + cour + " is not exists");
         }
         public int TotalCredit() => this.totalCredit;
         public double DonePrecent() => this.donePrecents;
-        private string Name() => this.name;
+        public string Name() => this.name;
 
-        private double ExpectAverage() => this.expectAverage;
+        public double ExpectAverage() => this.expectAverage;
 
-        private double Difference() => this.difference;
+        public double Difference() => this.difference;
 
-        private double Average() => this.average;
-        private int Credit() => this.credit;
+        public double Average() => this.average;
+        public int Credit() => this.credit;
 
         public Year [] Years() => this.years;
     }
