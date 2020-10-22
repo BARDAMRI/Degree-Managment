@@ -24,7 +24,7 @@ namespace DM.Backend.DAL
         {
             get { return connectionString; }
         }
-        public bool Update(string email, string columnName, object insertValue)
+        public bool Update(int id, string columnName, object insertValue)
         {
             int res = -1;
             using (var connection = new SQLiteConnection(connectionString))
@@ -32,7 +32,7 @@ namespace DM.Backend.DAL
                 SQLiteCommand command = new SQLiteCommand
                 {
                     Connection = connection,
-                    CommandText = $"update {tableName} set [{columnName}]=@{columnName} where Email={email}"
+                    CommandText = $"update {tableName} set [{columnName}]=@{columnName} where ID={id}"
                 };
                 try
                 {

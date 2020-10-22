@@ -70,7 +70,12 @@
     <Compile Include="Backend\BL\Year.cs" />
     <Compile Include="Backend\DAL\DALController.cs" />
     <Compile Include="Backend\DAL\CourseDALController.cs" />
+    <Compile Include="Backend\DAL\DALO\DALCourse.cs" />
+    <Compile Include="Backend\DAL\DALO\DALDegree.cs" />
     <Compile Include="Backend\DAL\DALO\DALObj.cs" />
+    <Compile Include="Backend\DAL\DALO\DALSemester.cs" />
+    <Compile Include="Backend\DAL\DALO\DALStudent.cs" />
+    <Compile Include="Backend\DAL\DALO\DALYear.cs" />
     <Compile Include="Backend\DAL\DegreeDALController.cs" />
     <Compile Include="Backend\DAL\SemesterDALController.cs" />
     <Compile Include="Backend\DAL\StudentDALController.cs" />
