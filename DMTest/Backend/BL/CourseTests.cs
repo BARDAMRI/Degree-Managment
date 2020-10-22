@@ -26,42 +26,42 @@ namespace DM.Backend.BL.Tests
             Assert.AreEqual(course1.Name(), "calculus2", "failed tochange course name");
         }
 
-        [Test]
-        public void addBlockerTest()
-        {
-            Course course2 = new Course("calculus2", 5);
-            course1.addBlocker(course2);
-            Assert.AreEqual(course1.Blockers()["calculus2"], course2, "fail to add blocker");
-        }
+        //[Test]
+        //public void addBlockerTest()
+        //{
+        //    Course course2 = new Course("calculus2", 5);
+        //    course1.addBlocker(course2);
+        //    Assert.AreEqual(course1.Blockers()["calculus2"], course2, "fail to add blocker");
+        //}
 
-        [Test]
-        public void removeBlockerTest()
-        {
-            Course course2 = new Course("calculus2", 5);
-            course1.addBlocker(course2);
-            course1.removeBlocker(course2);
-            bool ans = course1.Blockers().ContainsKey("calculus2");
-            Assert.AreEqual(ans, false, "fail to remove blocker");
-        }
+        //[Test]
+        //public void removeBlockerTest()
+        //{
+        //    Course course2 = new Course("calculus2", 5);
+        //    course1.addBlocker(course2);
+        //    course1.removeBlocker(course2);
+        //    bool ans = course1.Blockers().ContainsKey("calculus2");
+        //    Assert.AreEqual(ans, false, "fail to remove blocker");
+        //}
 
-        [Test]
-        public void removeBlockerTest1()
-        {
-            Course course2 = new Course("calculus2", 5);
-            course1.addBlocker(course2);
-            course1.removeBlocker("calculus2");
-            bool ans = course1.Blockers().ContainsKey("calculus2");
-            Assert.AreEqual(ans, false, "fail to remove blocker");
-        }
+        //[Test]
+        //public void removeBlockerTest1()
+        //{
+        //    Course course2 = new Course("calculus2", 5);
+        //    course1.addBlocker(course2);
+        //    course1.removeBlocker("calculus2");
+        //    bool ans = course1.Blockers().ContainsKey("calculus2");
+        //    Assert.AreEqual(ans, false, "fail to remove blocker");
+        //}
 
-        [Test]
-        public void isBlockerTest()
-        {
-            Course course2 = new Course("calculus2", 5);
-            course1.addBlocker(course2);
-            bool ans = course1.isBlocker("calculus2");
-            Assert.AreEqual(ans, true, "fail to check blocker");
-        }
+        //[Test]
+        //public void isBlockerTest()
+        //{
+        //    Course course2 = new Course("calculus2", 5);
+        //    course1.addBlocker(course2);
+        //    bool ans = course1.isBlocker("calculus2");
+        //    Assert.AreEqual(ans, true, "fail to check blocker");
+        //}
 
         [Test]
         public void setCreditTest()
@@ -86,12 +86,12 @@ namespace DM.Backend.BL.Tests
             Assert.IsTrue(course1.Equals(course2), "failed to compare courses");
         }
 
-        [Test]
-        public void hasBlockerTest()
-        {
-            Course course2 = new Course("calculus2", 5);
-            course1.addBlocker(course2);
-            Assert.IsFalse(course1.Blockers().IsNullOrEmpty(), "fail to check blockers existance");
-        }
+        //[Test]
+        //public void hasBlockerTest()
+        //{
+        //    Course course2 = new Course("calculus2", 5);
+        //    course1.addBlocker(course2);
+        //    Assert.IsFalse(course1.Blockers().IsNullOrEmpty(), "fail to check blockers existance");
+        //}
     }
 }

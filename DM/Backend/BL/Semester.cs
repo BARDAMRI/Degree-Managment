@@ -72,26 +72,26 @@ namespace DM.Backend.BL
             }
             throw new DException("the course " + name + " is not exists");
         }
-        public void addBlocker(Course course, Course blocker)
-        {
-            this.courses[course.Name()].addBlocker(blocker);
-        }
-        public void addBlocker(string course, Course blocker)
-        {
-            this.courses[course].addBlocker(blocker);
-        }
-        public void removeBlocker(Course course, Course blocker)
-        {
-            this.courses[course.Name()].removeBlocker(blocker);
-        }
-        public void removeBlocker(Course course, string blocker)
-        {
-            this.courses[course.Name()].removeBlocker(blocker);
-        }
-        public void removeBlocker(string course, string blocker)
-        {
-            this.courses[course].removeBlocker(blocker);
-        }
+        //public void addBlocker(Course course, Course blocker)
+        //{
+        //    this.courses[course.Name()].addBlocker(blocker);
+        //}
+        //public void addBlocker(string course, Course blocker)
+        //{
+        //    this.courses[course].addBlocker(blocker);
+        //}
+        //public void removeBlocker(Course course, Course blocker)
+        //{
+        //    this.courses[course.Name()].removeBlocker(blocker);
+        //}
+        //public void removeBlocker(Course course, string blocker)
+        //{
+        //    this.courses[course.Name()].removeBlocker(blocker);
+        //}
+        //public void removeBlocker(string course, string blocker)
+        //{
+        //    this.courses[course].removeBlocker(blocker);
+        //}
         public Course getCourse(String name)
         {
             if (courses.ContainsKey(name))
