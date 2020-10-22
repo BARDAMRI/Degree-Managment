@@ -29,18 +29,24 @@ namespace DM.Backend.DAL
                     connection.Open();
 
                     command.CommandText = $"INSERT INTO {DegreeTableName} ({DALDegree.DegreeNameColumn} ,{DALDegree.DegreeCreditColumn},{DALDegree.DegreeAverageColumn},{DALDegree.DegreeExpectedAverageColumn},{DALDegree.DegreeDonePrecentsColumn},{DALDegree.DegreeDifferenceColumn},{DALDegree.DegreeTotalCreditColumn},{DALDegree.DegreeStudentIdColumn}) " +
-                        $"VALUES (@numVal,@creditVal,@averageVal@yearVal,@degreeVal,@studentIdVal);";
+                        $"VALUES (@numVal,@creditVal,@averageVal,@expectedAverageVal,@donePrecentVal,@differenceVal,@totalCreditVal,@studentIdVal);";
 
 
-                    SQLiteParameter nameParam = new SQLiteParameter(@"numVal", degree.Number);
+                    SQLiteParameter nameParam = new SQLiteParameter(@"numVal", degree.Name);
                     SQLiteParameter creditParam = new SQLiteParameter(@"creditVal", degree.Credit);
                     SQLiteParameter averageParam = new SQLiteParameter(@"averageVal", degree.Average);
-                    SQLiteParameter expectedverageParam = new SQLiteParameter(@"degreeVal", year.Degree);
-                    SQLiteParameter studentIdParam = new SQLiteParameter(@"studentIdVal", year.StudentId);
+                    SQLiteParameter expectedverageParam = new SQLiteParameter(@"expectedverageVal", degree.ExpectedAverage);
+                    SQLiteParameter donePrecentParam = new SQLiteParameter(@"donePrecent", degree.DonePrecent);
+                    SQLiteParameter differenceParam = new SQLiteParameter(@"differenceVal", degree.Difference);
+                    SQLiteParameter totalCreditParam = new SQLiteParameter(@"totalCreditVal", degree.TotalCredit);
+                    SQLiteParameter studentIdParam = new SQLiteParameter(@"studentIdVal", degree.StudentId);
                     command.Parameters.Add(nameParam);
                     command.Parameters.Add(creditParam);
                     command.Parameters.Add(averageParam);
-                    command.Parameters.Add(degreeParam);
+                    command.Parameters.Add(expectedverageParam);
+                    command.Parameters.Add(donePrecentParam);
+                    command.Parameters.Add(differenceParam);
+                    command.Parameters.Add(totalCreditParam);
                     command.Parameters.Add(studentIdParam);
 
                     command.Prepare();
@@ -61,7 +67,7 @@ namespace DM.Backend.DAL
 
             }
         }
-        public bool Update(int studentId, int number, string degree, string columnName, string insertValue)
+        public bool Update(int studentId, string degree, string columnName, string insertValue)
         {
             int res = -1;
             using (var connection = new SQLiteConnection(connectionString))
@@ -70,14 +76,13 @@ namespace DM.Backend.DAL
                 SQLiteCommand command = new SQLiteCommand
                 {
                     Connection = connection,
-                    CommandText = $"update {DegreeTableName} set [{columnName}]=@colNameVal where Number=@numberVal AND Degree=@degreeVal AND Student=@studentIdVal"
+                    CommandText = $"update {DegreeTableName} set [{columnName}]=@colNameVal where Name=@nameVal AND Student=@studentIdVal"
 
                 };
                 try
                 {
                     command.Parameters.Add(new SQLiteParameter(@"colNameVal", insertValue));
-                    command.Parameters.Add(new SQLiteParameter(@"numberVal", number));
-                    command.Parameters.Add(new SQLiteParameter(@"degreeVal", degree));
+                    command.Parameters.Add(new SQLiteParameter(@"nameVal", degree));
                     command.Parameters.Add(new SQLiteParameter(@"studentId", studentId));
                     command.Prepare();
                     res = command.ExecuteNonQuery();

@@ -48,7 +48,7 @@ namespace DM.Backend.DAL.DALO
             get => name;
             set
             {
-                cont.Update(studentId, number, degree, DegreeNameColumn, value.ToString());
+                cont.Update(studentId, name, DegreeNameColumn, value.ToString());
                 name = value;
             }
         }
@@ -57,7 +57,7 @@ namespace DM.Backend.DAL.DALO
             get => credit;
             set
             {
-                cont.Update(studentId, number, degree, DegreeCreditColumn, value.ToString());
+                cont.Update(studentId, name, DegreeCreditColumn, value.ToString());
                 credit = value;
             }
         }
@@ -66,7 +66,7 @@ namespace DM.Backend.DAL.DALO
             get => this.average;
             set
             {
-                cont.Update(studentId, number, degree, DegreeAverageColumn, value.ToString());
+                cont.Update(studentId, name, DegreeAverageColumn, value.ToString());
                 average = value;
             }
         }
@@ -75,7 +75,7 @@ namespace DM.Backend.DAL.DALO
             get => expectedAverage;
             set
             {
-                cont.Update(studentId, number, degree, DegreeExpectedAverageColumn, value);
+                cont.Update(studentId, name, DegreeExpectedAverageColumn, value.ToString());
                 expectedAverage = value;
             }
         }
@@ -84,7 +84,7 @@ namespace DM.Backend.DAL.DALO
             get => donePrecent;
             set
             {
-                cont.Update(studentId, number, degree, DegreeDonePrecentsColumn, value);
+                cont.Update(studentId, name, DegreeDonePrecentsColumn, value.ToString());
                 donePrecent = value;
             }
         }
@@ -93,8 +93,17 @@ namespace DM.Backend.DAL.DALO
             get => difference;
             set
             {
-                cont.Update(studentId, number, degree, DegreeDifferenceColumn, value);
+                cont.Update(studentId, name, DegreeDifferenceColumn, value.ToString());
                 difference = value;
+            }
+        }
+        public int TotalCredit
+        {
+            get => totalCredit;
+            set
+            {
+                cont.Update(studentId, name, DegreeDifferenceColumn, value.ToString());
+                totalCredit = value;
             }
         }
         public int StudentId
@@ -102,7 +111,7 @@ namespace DM.Backend.DAL.DALO
             get => this.studentId;
             set
             {
-                cont.Update(studentId, number, degree, DegreeStudentIdColumn, value.ToString());
+                cont.Update(studentId, name, DegreeStudentIdColumn, value.ToString());
                 studentId = value;
             }
         }
