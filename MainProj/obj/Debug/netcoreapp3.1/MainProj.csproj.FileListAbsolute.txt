@@ -1,0 +1,4 @@
+C:\Users\barda\source\repos\Degree-Managment\MainProj\obj\Debug\netcoreapp3.1\MainProj.csprojAssemblyReference.cache
+C:\Users\barda\source\repos\Degree-Managment\MainProj\obj\Debug\netcoreapp3.1\MainProj.csproj.CoreCompileInputs.cache
+C:\Users\barda\source\repos\Degree-Managment\MainProj\obj\Debug\netcoreapp3.1\MainProj.AssemblyInfoInputs.cache
+C:\Users\barda\source\repos\Degree-Managment\MainProj\obj\Debug\netcoreapp3.1\MainProj.AssemblyInfo.cs

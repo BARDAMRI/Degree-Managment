@@ -32,7 +32,7 @@ namespace DM.Backend.BL
         }
         public void logout(int id)
         {
-            if (logged.Id() == id)
+            if (logged.Id == id)
             {
                 logged = null;
             }
@@ -41,7 +41,7 @@ namespace DM.Backend.BL
                 throw new DException("the student is already sighned out");
             }
         }
-        public bool isLogged(int id) => logged.Id() == id;
+        public bool isLogged(int id) => logged.Id == id;
 
         public void LoadData()
         {
@@ -49,7 +49,7 @@ namespace DM.Backend.BL
             foreach (KeyValuePair<int, DALStudent> user in users)
             {
                 Student toAdd = new Student(user.Value.Name, user.Key, user.Value.Password);
-                this.users.Add(toAdd.Id(), toAdd);
+                this.users.Add(toAdd.Id, toAdd);
             }
         }
         public void DeleteData()
@@ -107,7 +107,7 @@ namespace DM.Backend.BL
                 throw new DException("illegal id number");
             if (isLogged(id))
             {
-                cou.Insert(new DALCourse(course.Name(),course.Credit(), course.Grade(),users[id].Degree.Name(),id,setYear(sem),sem));
+                cou.Insert(new DALCourse(course.Name(),course.Credit(), course.Grade(),users[id].Degree.Name,id,setYear(sem),sem));
                 users[id].addCourse(sem, course);
             }
 
@@ -120,7 +120,7 @@ namespace DM.Backend.BL
                 throw new DException("illegal id number");
             if (isLogged(id))
             {
-                cou.Insert(new DALCourse(name, credit, -1, users[id].Degree.Name(), id, setYear(sem), sem));
+                cou.Insert(new DALCourse(name, credit, -1, users[id].Degree.Name, id, setYear(sem), sem));
                 users[id].addCourse(setYear(sem),sem, name, credit);
             }
             else
@@ -133,7 +133,7 @@ namespace DM.Backend.BL
                 throw new DException("illegal id number");
             if (isLogged(id))
             {
-                cou.Insert(new DALCourse(name, credit, -1, users[id].Degree.Name(), id, setYear(sem), sem));
+                cou.Insert(new DALCourse(name, credit, -1, users[id].Degree.Name, id, setYear(sem), sem));
                 users[id].addCourse(year,sem, name, credit);
             }
             else
@@ -145,7 +145,7 @@ namespace DM.Backend.BL
                 throw new DException("illegal id number");
             if (isLogged(id))
             {
-                cou.Insert(new DALCourse(course.Name(), course.Credit(), course.Grade(), users[id].Degree.Name(), id, setYear(sem), sem));
+                cou.Insert(new DALCourse(course.Name(), course.Credit(), course.Grade(), users[id].Degree.Name, id, setYear(sem), sem));
                 users[id].addCourse(year,sem, course);
             }
             else
@@ -157,7 +157,7 @@ namespace DM.Backend.BL
                 throw new DException("illegal id number");
             if (isLogged(id))
             {
-                seme.Insert(new DALSemester(sem.Number(),sem.Credit(),sem.Average(),setYear(sem.Number()), users[id].Degree.Name(), id));
+                seme.Insert(new DALSemester(sem.Number,sem.Credit,sem.Average,setYear(sem.Number), users[id].Degree.Name, id));
                 users[id].addSemester(sem);
             }
             else

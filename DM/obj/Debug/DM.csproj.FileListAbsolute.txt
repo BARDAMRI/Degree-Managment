@@ -16,3 +16,4 @@ C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\EntityFramework.SqlSer
 C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\System.Data.SQLite.xml
 C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.csproj.CopyComplete
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.csprojAssemblyReference.cache

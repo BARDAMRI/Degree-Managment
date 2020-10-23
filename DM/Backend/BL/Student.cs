@@ -41,7 +41,7 @@ namespace DM.Backend.BL
             this.password = pass;
             this.name = name;
             this.id = id;
-            degree = new Degree(degName, years,credit);
+            degree = new Degree(degName, years,credit,id);
         }
         public Student(string name, int id, int years, string degName, int expectedAvg, string pass, int credit)
         {
@@ -52,7 +52,7 @@ namespace DM.Backend.BL
         }
         public void startDegree(int years, string name,int credits)
         {
-            degree = new Degree(name, years,credits);
+            degree = new Degree(name, years,credits,id);
         }
         public void startDegree(int years, string name, int expectedAvg, int credits)
         {
@@ -109,7 +109,7 @@ namespace DM.Backend.BL
             degree.setGrade(course,grade);
         }
 
-        public double getAverage() => degree.Average();
+        public double getAverage() => degree.Average;
         public Semester getSemester(int sem)
         {
            return degree.getSemester(sem);
@@ -151,6 +151,11 @@ namespace DM.Backend.BL
         public void passCheck(string pass)
         {
             if (pass.Length < 4) throw new DException("password must be in 4 digits length");
+        }
+
+        internal void setName(string name)
+        {
+            Name = name;
         }
     }
 }
