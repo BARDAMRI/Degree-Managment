@@ -1,7 +1,8 @@
-﻿using System;
+﻿using DM.Backend.DAL;
+using DM.Backend.DAL.DALO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace DM.Backend.BL
 {
@@ -9,6 +10,7 @@ namespace DM.Backend.BL
     {
         private Dictionary<int, Student> users;
         Student logged;
+        private StudentDALController stu = new StudentDALController();
 
         public UserController()
         {
@@ -36,6 +38,22 @@ namespace DM.Backend.BL
             }
         }
         public bool isLogged(int id) => logged.Id() == id;
+
+        public void LoadData()
+        {
+            Dictionary<int, DALStudent> users = stu.LoadUsers();
+            foreach (KeyValuePair<int, DALStudent> user in users)
+            {
+                Student toAdd = new Student(user.Value.Name, user.Key, user.Value.Password);
+                this.users.Add(toAdd.Id(), toAdd);
+            }
+        }
+        public void DeleteData()
+        {
+            stu.Destroy();
+            logged = null;
+            users = new Dictionary<int, Student>();
+        }
         public void Register(string name, int id, string password)
         {
             if (isLegalId(id))

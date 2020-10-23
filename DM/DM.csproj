@@ -87,7 +87,8 @@
     <Compile Include="Backend\SL\Objects\SLYear.cs" />
     <Compile Include="Backend\SL\Response.cs" />
     <Compile Include="Backend\SL\ResponseT.cs" />
-    <Compile Include="Backend\SL\usersService.cs" />
+    <Compile Include="Backend\SL\Service.cs" />
+    <Compile Include="Backend\SL\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

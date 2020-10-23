@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DM.Backend.SL
 {
-    class usersService
+    class UserService
     {
         private UserController userController;
 
-        public usersService()
+        public UserService()
         {
             userController = new UserController();
         }
@@ -31,6 +31,40 @@ namespace DM.Backend.SL
             catch (Exception e)
             {
 
+                return new Response(e.Message);
+            }
+        }
+
+        internal Response DeleteData()
+        {
+            try
+            {
+                userController.DeleteData();
+                return new Response();
+            }
+            catch (DException e)
+            {
+                return new Response(e.Message);
+            }
+            catch (Exception e)
+            {
+                return new Response(e.Message);
+            }
+        }
+
+        internal Response LoadData()
+        {
+            try
+            {
+                userController.LoadData();
+                return new Response();
+            }
+            catch (DException e)
+            {
+                return new Response(e.Message);
+            }
+            catch (Exception e)
+            {
                 return new Response(e.Message);
             }
         }
@@ -99,7 +133,7 @@ namespace DM.Backend.SL
                 return new Response(e.Message);
             }
         }
-        private Response addCourse(int id, int sem, Course course)
+        public Response addCourse(int id, int sem, Course course)
         {
             try
             {
@@ -115,7 +149,7 @@ namespace DM.Backend.SL
                 return new Response(e.Message);
             }
         }
-        private Response addCourse(int id, int sem, string name, int credit)
+        public Response addCourse(int id, int sem, string name, int credit)
         {
             try
             {
@@ -132,7 +166,7 @@ namespace DM.Backend.SL
             }
 
         }
-        private Response addCourse(int id, int year, int sem, string name, int credit)
+        public Response addCourse(int id, int year, int sem, string name, int credit)
         {
             try
             {
@@ -148,7 +182,7 @@ namespace DM.Backend.SL
                 return new Response(e.Message);
             }
         }
-        private Response addCourse(int id, int year, int sem, Course course)
+        public Response addCourse(int id, int year, int sem, Course course)
         {
             try
             {
