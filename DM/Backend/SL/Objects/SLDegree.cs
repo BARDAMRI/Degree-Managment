@@ -41,16 +41,31 @@ namespace DM.Backend.SL.Objects
                 SLDegree degree = (SLDegree)obj;
                 if (degree.name == this.name & degree.credit == this.credit & degree.average == this.average & degree.expectAverage == this.expectAverage & degree.difference == this.difference & degree.donePrecents == this.donePrecents & degree.totalCredit == this.totalCredit)
                 {
-                    if (this.years == null & degree.years == null||(this.years.Length == 0 & degree.years.Length == 0))
+                    if ((this.years == null & degree.years == null)||(this.years.Length == 0 & degree.years.Length == 0))
                         return true;
                     if (this.years.Length != degree.years.Length)
                         return false;
-                        for (int i = 0; i < years.Length; i++)
+                    foreach (Year year in years)
                     {
-                        if (!years[i].Equals(degree.years[i]))
+                        bool contains = false;
+                        foreach (Year yea in degree.years)
                         {
-                            return false;
+                            if (year.Equals(yea))
+                                contains = true;
                         }
+                        if (!contains)
+                            return false;
+                    }
+                    foreach (Year year in degree.years)
+                    {
+                        bool contains = false;
+                        foreach (Year yea in years)
+                        {
+                            if (year.Equals(yea))
+                                contains = true;
+                        }
+                        if (!contains)
+                            return false;
                     }
                     return true;
                 }
