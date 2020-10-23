@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DM.Backend.DAL.DALO;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -12,15 +13,34 @@ namespace DM.Backend.BL
         private string name;
         private int credit;
         private int grade;
-      //  private Dictionary<string,Course> blockers;
+        private string degree;
+        private int studentId;
+        private int year;
+        private int semester;
+        private  CourseDALController cur = new CourseDALController();
 
-        public Course(string name, int credit)
+        public Course(string name, int credit,int id,string degree,int year,int semester)
         {
             this.name = name;
             this.credit = credit;
             this.grade = -1;
+            this.studentId = id;
+            this.year = year;
+            this.semester = semester;
+            this.degree = degree;
       //      blockers = new Dictionary<string, Course>();
 
+        }
+        public Course(string name,int grade, int credit, int id, string degree, int year, int semester)
+        {
+            this.name = name;
+            this.credit = credit;
+            this.grade = -1;
+            this.studentId = id;
+            this.year = year;
+            this.semester = semester;
+            this.degree = degree;
+            this.grade = grade;
         }
         public Course(Course cou)
         {
@@ -35,7 +55,8 @@ namespace DM.Backend.BL
     //    public Dictionary<string, Course> Blockers() => this.blockers;
 
         public void setName(string name) 
-        { 
+        {
+            cur.Update(studentId,name,degree,DALCourse.CourseNameColumn,name);
             this.name = name; 
         }
         //public void addBlocker(Course course)
@@ -79,10 +100,12 @@ namespace DM.Backend.BL
         //}
         public void setCredit(int newCredit)
         {
+            cur.Update(studentId, name, degree, DALCourse.CourseCreditColumn, newCredit.ToString());
             this.credit = newCredit;
         }
         public void setGrade(int newGrade)
         {
+            cur.Update(studentId, name, degree, DALCourse.CourseGradeColumn, newGrade.ToString());
             this.grade = newGrade;
         }
         public string Name() { return this.name; }
@@ -95,7 +118,7 @@ namespace DM.Backend.BL
             {
                 bool equal = true;
                 Course course = (Course)obj;
-                if (this.name != course.Name() || this.credit != course.Credit())
+                if (this.name != course.Name() || this.credit != course.Credit()|this.grade!=course.grade|this.semester!=course.semester|this.year!=course.year|this.degree!=course.degree|this.studentId!=course.studentId)
                     equal = false;
                 //foreach (KeyValuePair<string, Course> block in blockers)
                 //{

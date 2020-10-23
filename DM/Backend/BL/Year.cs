@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using DM.Backend.BL;
+using DM.Backend.DAL;
+using DM.Backend.DAL.DALO;
 
 namespace DM.Backend.BL
 {
@@ -11,13 +13,18 @@ namespace DM.Backend.BL
         private Semester [] semesters;
         private int credit;
         private double average;
+        private string degree;
+        private int studentId;
+        YearDALController yea = new YearDALController();
 
-        public Year(int num)
+        public Year(int num,int id,string degree)
         {
             semesters = new Semester[2];
             this.number = num;
             this.average = 0;
             this.credit = 0;
+            this.degree = degree;
+            this.studentId = id;
             semesters = new Semester[2];
             for(int i=1;i<=semesters.Length;i++)
             {
@@ -26,24 +33,51 @@ namespace DM.Backend.BL
         }
         public Year(Year ye)
         {
-            semesters = new Semester[ye.Semesters().Length];
-            this.number = ye.Number();
-            this.average = ye.Average() ;
-            this.credit = ye.Credit();
-            foreach(Semester sem in ye.Semesters())
+            semesters = new Semester[ye.Semesters.Length];
+            this.number = ye.Number;
+            this.average = ye.Average ;
+            this.credit = ye.Credit;
+            this.degree = ye.degree;
+            this.studentId = ye.studentId;
+            foreach(Semester sem in ye.Semesters)
             {
-                semesters[(sem.Number() - 1)] = new Semester(sem);
+                semesters[(sem.Number - 1)] = new Semester(sem);
 
             }
         }
 
-        public Semester [] Semesters() => this.semesters;
-
-        public void setNumber(int num)
+        public Semester[] Semesters
         {
-            this.number = num;
+            get => this.semesters;
         }
-        public int Number() => this.number;
+
+        public int Number
+        {
+            get => this.number;
+            set
+            {
+                yea.Update(studentId,number,degree,DALYear.yearNumberColumn,value.ToString());
+                this.number = value;
+            }
+        }
+        public string Degree
+        {
+            get => this.degree;
+            set
+            {
+                yea.Update(studentId, number, degree, DALYear.yearDegreeColumn, value);
+                this.degree = value;
+            }
+        }
+        public int StudentId
+        {
+            get => this.studentId;
+            set
+            {
+                yea.Update(studentId, number, degree, DALYear.yearStudentIdColumn, value.ToString());
+                this.studentId = value;
+            }
+        }
         public void addCourse(int semester ,Course course)
         {
             semesters[semester-1].addCourse(course);
@@ -54,9 +88,9 @@ namespace DM.Backend.BL
         }
         public void addSemester(Semester sem)
         {
-            if(semesters[sem.Number()]==null)
+            if(semesters[sem.Number]==null)
             {
-                semesters[sem.Number()] = sem;
+                semesters[sem.Number] = sem;
             }
         }
         public void addSemester(int sem)
@@ -74,14 +108,14 @@ namespace DM.Backend.BL
         public Semester deleteSemester(Semester sem)
         {
             bool done = false;
-            if (semesters[sem.Number()].Equals(sem))
+            if (semesters[sem.Number].Equals(sem))
             {
-                Semester sem1 = semesters[sem.Number()];
-                semesters[sem.Number()] = null;
+                Semester sem1 = semesters[sem.Number];
+                semesters[sem.Number] = null;
                 return sem1;
             }
             if (!done)
-                throw new DException("Semester " + sem.Number() + " is not exists");
+                throw new DException("Semester " + sem.Number + " is not exists");
             return null;
         }
         public void deleteCourse(Course course)
@@ -171,20 +205,76 @@ namespace DM.Backend.BL
             if(!done)
             throw new DException("Course " + course + " is not exists");
         }
-        public double Average() => this.average;
-        public int Credit() => this.credit;
+        public double Average
+        {
+            get => this.average;
+        }
+        public int Credit
+        {
+            get => this.credit;
+        }
         protected void setAverage()
         {
             double sum=0;
             int cred = 0;
             foreach(Semester sem in semesters)
             {
-                cred += sem.Credit();
-                sum += sem.Average();
+                cred += sem.Credit;
+                sum += sem.Average;
             }
                 sum /= cred;
                 this.average = sum;
         }
+        public override bool Equals(object obj)
+        {
+            if (obj is Year)
+            {
+                Year ye = (Year)obj;
+                if (Number != ye.Number || Credit != ye.Credit || Average != ye.Average | this.studentId != ye.StudentId | this.degree != ye.degree)
+                    return false;
+                foreach (Semester semester in semesters)
+                {
+                    bool contains = false;
+                    foreach (Semester semes in ye.semesters)
+                    {
+                        if (semester.Equals(semes))
+                            contains = true;
+                    }
+                    if (!contains)
+                        return false;
+                }
+                foreach (Semester semester in ye.semesters)
+                {
+                    bool contains = false;
+                    foreach (Semester semes in semesters)
+                    {
+                        if (semes.Equals(semester))
+                            contains = true;
+                    }
+                    if (!contains)
+                        return false;
+                }
+            }
+                return false;
+        }
 
+        public override int GetHashCode()
+        {
+            int hashCode = 976657202;
+            hashCode = hashCode * -1521134295 + number.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Semester[]>.Default.GetHashCode(semesters);
+            hashCode = hashCode * -1521134295 + credit.GetHashCode();
+            hashCode = hashCode * -1521134295 + average.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(degree);
+            hashCode = hashCode * -1521134295 + studentId.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<YearDALController>.Default.GetHashCode(yea);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Semester[]>.Default.GetHashCode(Semesters);
+            hashCode = hashCode * -1521134295 + Number.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Degree);
+            hashCode = hashCode * -1521134295 + StudentId.GetHashCode();
+            hashCode = hashCode * -1521134295 + Average.GetHashCode();
+            hashCode = hashCode * -1521134295 + Credit.GetHashCode();
+            return hashCode;
+        }
     }
 }

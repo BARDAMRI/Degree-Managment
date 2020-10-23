@@ -16,8 +16,9 @@ namespace DM.Backend.DAL.DALO
         private double donePrecent;
         private int totalCredit;
         private int studentId;
+        private int yearsNum;
         internal DegreeDALController cont = new DegreeDALController();
-        public const string DegreeNameColumn = "Number";
+        public const string DegreeNameColumn = "Name";
         public const string DegreeCreditColumn = "Credit";
         public const string DegreeAverageColumn = "Average";
         public const string DegreeStudentIdColumn = "Student";
@@ -25,12 +26,13 @@ namespace DM.Backend.DAL.DALO
         public const string DegreeDifferenceColumn = "Difference";
         public const string DegreeDonePrecentsColumn = "DonePrecent";
         public const string DegreeTotalCreditColumn = "TotalCredit";
+        public const string DegreeYearsNumColumn = "YearsNum";
 
         public DALDegree(string name) : base(new StudentDALController())
         {
             this.name = name;
         }
-        public DALDegree(string name, int credit, double average, double expectedAverage,double donePrecent,int totalCredit,double difference, int studentId) : base(new StudentDALController())
+        public DALDegree(string name, int credit, double average, double expectedAverage,double donePrecent,int totalCredit,double difference, int studentId,int yearsNum) : base(new StudentDALController())
         {
 
             this.name = name;
@@ -41,7 +43,17 @@ namespace DM.Backend.DAL.DALO
             this.donePrecent = donePrecent;
             this.totalCredit = totalCredit;
             this.studentId = studentId;
+            this.yearsNum = yearsNum;
 
+        }
+        public int YearNum
+        {
+            get => this.yearsNum;
+            set
+            {
+                cont.Update(studentId, name, DegreeYearsNumColumn, value.ToString());
+                yearsNum = value;
+            }
         }
         public string Name
         {

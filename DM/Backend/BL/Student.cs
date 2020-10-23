@@ -22,13 +22,16 @@ namespace DM.Backend.BL
         }
         public Student(Student stu)
         {
-            this.password = stu.Password();
-            this.name = stu.Name();
-            this.id = stu.Id();
-            degree = stu.Degree();
+            this.password = stu.Password;
+            this.name = stu.Name;
+            this.id = stu.Id;
+            degree = stu.Degree;
         }
 
-        public string Password() => this.password;
+        public string Password
+        {
+            get => this.password;
+        }
 
         public Student(string name, int id, int years, string degName,string pass,int credit)
         {
@@ -116,10 +119,24 @@ namespace DM.Backend.BL
         {
             return degree.getCourse(cour);
         }
-        public string Name() => this.name;
-        public int Id() => this.id;
-        public Degree Degree() => this.degree;
-        public void setName(string name)
+        public string Name
+        {
+            get => this.name;
+        }
+        public int Id
+        {
+            get => this.id;
+        }
+        public Degree Degree
+        {
+            get { return this.degree; }
+            set
+            {
+
+                this.degree = value;
+            }
+        }
+            public void setName(string name)
         {
             this.name = name;
         }

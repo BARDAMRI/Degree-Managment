@@ -28,8 +28,8 @@ namespace DM.Backend.DAL
                 {
                     connection.Open();
 
-                    command.CommandText = $"INSERT INTO {DegreeTableName} ({DALDegree.DegreeNameColumn} ,{DALDegree.DegreeCreditColumn},{DALDegree.DegreeAverageColumn},{DALDegree.DegreeExpectedAverageColumn},{DALDegree.DegreeDonePrecentsColumn},{DALDegree.DegreeDifferenceColumn},{DALDegree.DegreeTotalCreditColumn},{DALDegree.DegreeStudentIdColumn}) " +
-                        $"VALUES (@numVal,@creditVal,@averageVal,@expectedAverageVal,@donePrecentVal,@differenceVal,@totalCreditVal,@studentIdVal);";
+                    command.CommandText = $"INSERT INTO {DegreeTableName} ({DALDegree.DegreeNameColumn} ,{DALDegree.DegreeCreditColumn},{DALDegree.DegreeAverageColumn},{DALDegree.DegreeExpectedAverageColumn},{DALDegree.DegreeDonePrecentsColumn},{DALDegree.DegreeDifferenceColumn},{DALDegree.DegreeTotalCreditColumn},{DALDegree.DegreeStudentIdColumn},{DALDegree.DegreeYearsNumColumn}) " +
+                        $"VALUES (@numVal,@creditVal,@averageVal,@expectedAverageVal,@donePrecentVal,@differenceVal,@totalCreditVal,@studentIdVal,@yearsNumVal);";
 
 
                     SQLiteParameter nameParam = new SQLiteParameter(@"numVal", degree.Name);
@@ -40,6 +40,7 @@ namespace DM.Backend.DAL
                     SQLiteParameter differenceParam = new SQLiteParameter(@"differenceVal", degree.Difference);
                     SQLiteParameter totalCreditParam = new SQLiteParameter(@"totalCreditVal", degree.TotalCredit);
                     SQLiteParameter studentIdParam = new SQLiteParameter(@"studentIdVal", degree.StudentId);
+                    SQLiteParameter yearsNumParam = new SQLiteParameter(@"yearsNumVal", degree.StudentId);
                     command.Parameters.Add(nameParam);
                     command.Parameters.Add(creditParam);
                     command.Parameters.Add(averageParam);
@@ -48,6 +49,7 @@ namespace DM.Backend.DAL
                     command.Parameters.Add(differenceParam);
                     command.Parameters.Add(totalCreditParam);
                     command.Parameters.Add(studentIdParam);
+                    command.Parameters.Add(yearsNumParam);
 
                     command.Prepare();
                     res = command.ExecuteNonQuery();
@@ -140,7 +142,7 @@ namespace DM.Backend.DAL
 
         protected override DALObj ConvertReaderToObject(SQLiteDataReader reader)
         {
-            DALYear ret = new DALYear(reader.GetInt32(0), reader.GetInt32(1), reader.GetDouble(2), reader.GetString(4), reader.GetInt32(5));
+            DALDegree ret = new DALDegree(reader.GetString(0), reader.GetInt32(1), reader.GetDouble(2), reader.GetDouble(3), reader.GetDouble(4), reader.GetInt32(5), reader.GetDouble(6), reader.GetInt32(7), reader.GetInt32(8));
             return ret;
         }
     }

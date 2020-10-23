@@ -73,7 +73,7 @@ namespace DM.Backend.BL
                 throw new DException("illegal semester number");
             if (credit > 10)
                 throw new DException("wrong credit number");
-            int year = sem / 2;
+            int year = setYear(sem);
             int semester = sem - (2 - (year - 1));
             years[year].addCourse(semester,course);
         }
@@ -84,7 +84,7 @@ namespace DM.Backend.BL
             if (!isLegalSemester(sem))
                 throw new DException("illegal semester number");
 
-            int year = sem / 2;
+            int year = setYear(sem);
             int semester = sem - (2 - (year - 1));
             years[year].addCourse(semester,  name,  credit);
         }
@@ -112,14 +112,14 @@ namespace DM.Backend.BL
                 throw new DException("illegal semester number");
             if (sem.Credit() > 10)
                 throw new DException("wrong credit number");
-            int year = sem.Number() / 2;
+            int year = setYear(sem.Number());
             years[year].addSemester(sem);
         }
         public void addSemester(int sem)
         {
             if (!isLegalSemester(sem))
                 throw new DException("illegal semester number");
-            int year = sem / 2;
+            int year = setYear(sem);
             years[year].addSemester(sem);
         }
         public double getDifference() => this.difference;
@@ -128,12 +128,12 @@ namespace DM.Backend.BL
         {
             if (!isLegalSemester(sem))
                 throw new DException("illegal semester number");
-            int year = sem / 2;
+            int year = setYear(sem) ;
             years[year].deleteSemester(sem);
         }
         public void deleteSemester(Semester sem)
         {
-            int year = sem.Number() / 2;
+            int year = setYear(sem.Number()); 
             years[year].deleteSemester(sem);
         }
         public void deleteCourse(string name)
@@ -213,7 +213,7 @@ namespace DM.Backend.BL
         {
             if (!isLegalSemester(sem))
                 throw new DException("illegal semester number");
-            int year= sem / 2;
+            int year= setYear(sem);
             int semester= (sem-1)% 2;
             return years[year].getSemester(semester);
         }
@@ -257,6 +257,15 @@ namespace DM.Backend.BL
             if (sem > years.Length * 2)
                 return false;
             return true;
+        }
+        public int setYear(int sem)
+        {
+            if (sem % 2 == 0)
+            {
+                return sem / 2;
+            }
+            else
+                return (sem + 1) / 2;
         }
     }
 }

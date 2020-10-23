@@ -11,7 +11,9 @@ namespace DM.Backend.BL
         private Dictionary<int, Student> users;
         Student logged;
         private StudentDALController stu = new StudentDALController();
-
+        DegreeDALController deg = new DegreeDALController();
+        CourseDALController cou = new CourseDALController();
+        SemesterDALController seme = new SemesterDALController();
         public UserController()
         {
             this.users = new Dictionary<int, Student>();
@@ -60,8 +62,11 @@ namespace DM.Backend.BL
         {
             if (isLegalId(id))
             {
-                if (isGoodInput(name,id,password))
+                if (isGoodInput(name, id, password))
+                {
+                    stu.Insert(new DALStudent(name, password, id));
                     users.Add(id, new Student(name, id, password));
+                }
                 else
                     throw new DException("bad input");
             }
@@ -74,17 +79,24 @@ namespace DM.Backend.BL
             if (!isLegalId(id))
                 throw new DException("illegal id number");
             if (isLogged(id))
-                users[id].startDegree(years, name,  credits);
-
+            {
+                
+                deg.Insert(new DALDegree(name,credits,0,0,0,0,0,id,years));
+                users[id].startDegree(years, name, credits);
+            }
             else
                 throw new DException("Student is not logged in");
         }
         public void startDegree(int id, int years, string name, int expectedAvg, int credits)
         {
+
             if (!isLegalId(id))
                 throw new DException("illegal id number");
             if (isLogged(id))
+            {
+                deg.Insert(new DALDegree(name, credits, 0, 0, 0, 0, 0, id,years));
                 users[id].startDegree(years, name, expectedAvg, credits);
+            }
 
             else
                 throw new DException("Student is not logged in");
@@ -94,7 +106,10 @@ namespace DM.Backend.BL
             if (!isLegalId(id))
                 throw new DException("illegal id number");
             if (isLogged(id))
+            {
+                cou.Insert(new DALCourse(course.Name(),course.Credit(), course.Grade(),users[id].Degree.Name(),id,setYear(sem),sem));
                 users[id].addCourse(sem, course);
+            }
 
             else
                 throw new DException("Student is not logged in");
@@ -104,8 +119,10 @@ namespace DM.Backend.BL
             if (!isLegalId(id))
                 throw new DException("illegal id number");
             if (isLogged(id))
-                users[id].addCourse(sem, name, credit);
-
+            {
+                cou.Insert(new DALCourse(name, credit, -1, users[id].Degree.Name(), id, setYear(sem), sem));
+                users[id].addCourse(setYear(sem),sem, name, credit);
+            }
             else
                 throw new DException("Student is not logged in");
           
@@ -115,8 +132,10 @@ namespace DM.Backend.BL
             if (!isLegalId(id))
                 throw new DException("illegal id number");
             if (isLogged(id))
-                users[id].addCourse(year, sem, name, credit);
-
+            {
+                cou.Insert(new DALCourse(name, credit, -1, users[id].Degree.Name(), id, setYear(sem), sem));
+                users[id].addCourse(year,sem, name, credit);
+            }
             else
                 throw new DException("Student is not logged in");
         }
@@ -125,8 +144,10 @@ namespace DM.Backend.BL
             if (!isLegalId(id))
                 throw new DException("illegal id number");
             if (isLogged(id))
-                users[id].addCourse(year, sem, course);
-
+            {
+                cou.Insert(new DALCourse(course.Name(), course.Credit(), course.Grade(), users[id].Degree.Name(), id, setYear(sem), sem));
+                users[id].addCourse(year,sem, course);
+            }
             else
                 throw new DException("Student is not logged in");
         }
@@ -135,8 +156,10 @@ namespace DM.Backend.BL
             if (!isLegalId(id))
                 throw new DException("illegal id number");
             if (isLogged(id))
+            {
+                seme.Insert(new DALSemester(sem.Number(),sem.Credit(),sem.Average(),setYear(sem.Number()), users[id].Degree.Name(), id));
                 users[id].addSemester(sem);
-
+            }
             else
                 throw new DException("Student is not logged in");
         }
@@ -331,6 +354,15 @@ namespace DM.Backend.BL
             if (!isLegalId(id))
                 return false;
             return true;
+        }
+        public int setYear(int sem)
+        {
+            if (sem % 2 == 0)
+            {
+                return sem / 2;
+            }
+            else
+                return (sem + 1) / 2;
         }
     }
 }
