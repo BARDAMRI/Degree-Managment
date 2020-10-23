@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DM.Backend.DAL;
+using DM.Backend.DAL.DALO;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -12,6 +14,7 @@ namespace DM.Backend.BL
         private string password;
         private int id;
         private Degree degree;
+        private StudentDALController stu = new StudentDALController();
 
         public Student(string name, int id, string pass)
         {
@@ -122,27 +125,28 @@ namespace DM.Backend.BL
         public string Name
         {
             get => this.name;
+            set
+            {
+                stu.Update(id,DALStudent.StudentNameColumn,value.ToString());
+                name = value;
+            }
         }
         public int Id
         {
             get => this.id;
+            set
+            {
+                stu.Update(id, DALStudent.StudentIdColumn, value.ToString());
+                id = value;
+            }
         }
         public Degree Degree
         {
             get { return this.degree; }
             set
             {
-
                 this.degree = value;
             }
-        }
-            public void setName(string name)
-        {
-            this.name = name;
-        }
-        public void setId(int id)
-        {
-            this.id = id;
         }
         public void passCheck(string pass)
         {

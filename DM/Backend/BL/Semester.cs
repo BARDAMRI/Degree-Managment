@@ -142,6 +142,11 @@ namespace DM.Backend.BL
         public double Average {
      
             get => this.average;
+            set
+            {
+                seme.Update(studentId, number, degree, DALSemester.SemesterAverageColumn, value.ToString());
+                this.average = value;
+            }
            
         }
         public int Credit
@@ -161,7 +166,7 @@ namespace DM.Backend.BL
                 double sum = Average * Credit;
                 sum += (credit * grade);
                 sum /= (Credit + credit);
-                this.average = sum;
+                Average = sum;
             }
         }
 

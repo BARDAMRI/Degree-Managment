@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Text;
 using DM.Backend.BL;
+using DM.Backend.DAL;
+using DM.Backend.DAL.DALO;
 
 namespace DM.Backend.BL
 {
@@ -16,15 +18,18 @@ namespace DM.Backend.BL
         private double difference;
         private double donePrecents;
         private int totalCredit;
+        private int studentId;
+        private DegreeDALController degr = new DegreeDALController();
         
-        public Degree(string name, int years,int credit)
+        public Degree(string name, int years,int credit,int id)
         {
             this.totalCredit = credit;
             this.name = name;
+            this.studentId = id;
             this.years = new Year[years];
             for(int i=0;i<=years;i++)
             {
-                this.years[i] = new Year(i);
+                this.years[i] = new Year(i,id,name);
             }
             this.credit = 0;
             this.average = 0;
@@ -32,7 +37,7 @@ namespace DM.Backend.BL
             this.expectAverage = 0;
             this.difference = 0;
         }
-        public Degree(string name,int years,int exp,int credit)
+        public Degree(string name,int years,int exp,int credit,int id)
         {
             if (exp > 100)
                 throw new DException("expected grade must be smaller than 100");
@@ -42,10 +47,11 @@ namespace DM.Backend.BL
                 throw new DException("years number too long");
             this.totalCredit = credit;
             this.name = name;
+            this.studentId = id;
             this.years = new Year[years];
             for (int i = 0; i <= years; i++)
             {
-                this.years[i] = new Year(i);
+                this.years[i] = new Year(i,id,name);
             }
             this.credit = 0;
             this.average = 0;
@@ -55,17 +61,17 @@ namespace DM.Backend.BL
         }
         public Degree(Degree deg)
         {
-            this.name = deg.Name();
-            this.years = new Year[deg.Years().Length];
-            for (int i = 0; i <= deg.Years().Length; i++)
+            this.name = deg.Name;
+            this.years = new Year[deg.Years.Length];
+            for (int i = 0; i <= deg.Years.Length; i++)
             {
-                this.years[i] = new Year(deg.Years()[i]);
+                this.years[i] = new Year(deg.Years[i]);
             }
-            this.credit = deg.Credit();
-            this.average = deg.Average();
-            this.difference = deg.Difference();
-            this.expectAverage = deg.ExpectAverage();
-            this.difference = deg.Difference();
+            this.credit = deg.Credit;
+            this.average = deg.Average;
+            this.difference = deg.Difference;
+            this.expectAverage = deg.ExpectAverage;
+            this.difference = deg.Difference;
         }
         public void addCourse(int sem,Course course)
         {
@@ -108,11 +114,11 @@ namespace DM.Backend.BL
         }
         public void addSemester(Semester sem)
         {
-            if (!isLegalSemester(sem.Number()))
+            if (!isLegalSemester(sem.Number))
                 throw new DException("illegal semester number");
-            if (sem.Credit() > 10)
+            if (sem.Credit > 10)
                 throw new DException("wrong credit number");
-            int year = setYear(sem.Number());
+            int year = setYear(sem.Number);
             years[year].addSemester(sem);
         }
         public void addSemester(int sem)
@@ -133,7 +139,7 @@ namespace DM.Backend.BL
         }
         public void deleteSemester(Semester sem)
         {
-            int year = setYear(sem.Number()); 
+            int year = setYear(sem.Number); 
             years[year].deleteSemester(sem);
         }
         public void deleteCourse(string name)
@@ -187,7 +193,7 @@ namespace DM.Backend.BL
 
         private void setPrecent()
         {
-            this.donePrecents = Credit() / totalCredit;
+            DonePrecent = (Credit / totalCredit)*100;
         }
 
         private void setAverage()
@@ -196,17 +202,17 @@ namespace DM.Backend.BL
             int cred = 0;
             foreach (Year year in years)
             {
-                cred += year.Credit();
-                sum += year.Average();
+                cred += year.Credit;
+                sum += year.Average;
             }
             sum /= cred;
-            this.average = sum;
+            Average = sum;
             setDiffer();
         }
 
         private void setDiffer()
         {
-            this.difference = ExpectAverage() - Average();
+            Difference = ExpectAverage - Average;
         }
 
         public Semester getSemester(int sem)
@@ -240,18 +246,77 @@ namespace DM.Backend.BL
             }
             throw new DException("Course " + cour + " is not exists");
         }
-        public int TotalCredit() => this.totalCredit;
-        public double DonePrecent() => this.donePrecents;
-        public string Name() => this.name;
+        public int TotalCredit
+        {
+            get => this.totalCredit;
+            set
+            {
+                degr.Update(studentId,name,DALDegree.DegreeTotalCreditColumn,value.ToString());
+                this.totalCredit = value;
+            }
+        }
+        public double DonePrecent
+        {
+            get => this.donePrecents;
+            set
+            {
+                degr.Update(studentId, name, DALDegree.DegreeDonePrecentsColumn, value.ToString());
+                this.donePrecents = value;
+            }
+        }
+        public string Name
+        {
+            get => this.name;
+            set
+            {
+                degr.Update(studentId, name, DALDegree.DegreeNameColumn, value.ToString());
+                this.name = value;
+            }
 
-        public double ExpectAverage() => this.expectAverage;
+        }
+        public double ExpectAverage
+        {
+            get => this.expectAverage;
+            set
+            {
+                degr.Update(studentId, name, DALDegree.DegreeExpectedAverageColumn, value.ToString());
+                this.expectAverage = value;
+            }
+        }
+        public double Difference
+        {
+            get => this.difference;
+            set
+            {
+                degr.Update(studentId, name, DALDegree.DegreeDifferenceColumn, value.ToString());
+                this.difference = value;
+            }
+        }
 
-        public double Difference() => this.difference;
+        public double Average
+        {
+            get => this.average;
+            set
+            {
+                degr.Update(studentId, name, DALDegree.DegreeAverageColumn, value.ToString());
+                this.average = value;
+            }
+        }
+        public int Credit
+        {
+            get => this.credit;
 
-        public double Average() => this.average;
-        public int Credit() => this.credit;
+            set
+            {
+                degr.Update(studentId, name, DALDegree.DegreeCreditColumn, value.ToString());
+                this.credit = value;
+            }
+        }
 
-        public Year [] Years() => this.years;
+        public Year[] Years
+        {
+            get => this.years;
+        }
         public bool isLegalSemester(int sem)
         {
             if (sem > years.Length * 2)
