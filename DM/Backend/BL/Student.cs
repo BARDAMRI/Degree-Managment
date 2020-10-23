@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace DM.Backend.BL
 {
-    class Student
+    public class Student
     {
 
         private string name;

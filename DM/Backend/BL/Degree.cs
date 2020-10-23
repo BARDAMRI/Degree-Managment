@@ -6,7 +6,7 @@ using DM.Backend.BL;
 
 namespace DM.Backend.BL
 {
-    class Degree
+    public class Degree
     {
         private string name;
         private Year[] years;
@@ -34,6 +34,12 @@ namespace DM.Backend.BL
         }
         public Degree(string name,int years,int exp,int credit)
         {
+            if (exp > 100)
+                throw new DException("expected grade must be smaller than 100");
+            if(credit>10)
+                throw new DException("wrong credit number");
+            if(years>7)
+                throw new DException("years number too long");
             this.totalCredit = credit;
             this.name = name;
             this.years = new Year[years];
@@ -63,33 +69,56 @@ namespace DM.Backend.BL
         }
         public void addCourse(int sem,Course course)
         {
+            if (!isLegalSemester(sem))
+                throw new DException("illegal semester number");
+            if (credit > 10)
+                throw new DException("wrong credit number");
             int year = sem / 2;
             int semester = sem - (2 - (year - 1));
             years[year].addCourse(semester,course);
         }
         public void addCourse(int sem, string name,int credit)
         {
+            if (credit > 10)
+                throw new DException("wrong credit number");
+            if (!isLegalSemester(sem))
+                throw new DException("illegal semester number");
+
             int year = sem / 2;
             int semester = sem - (2 - (year - 1));
             years[year].addCourse(semester,  name,  credit);
         }
         public void addCourse(int year, int sem, string name, int credit)
         {
+            if (!isLegalSemester(sem))
+                throw new DException("illegal semester number");
+            if (credit > 10)
+                throw new DException("wrong credit number");
             int semester = sem - (2 - (year - 1));
             years[year].addCourse(semester, name,  credit);
         }
         public void addCourse(int year,int sem, Course course)
         {
+            if (!isLegalSemester(sem))
+                throw new DException("illegal semester number");
+            if (credit > 10)
+                throw new DException("wrong credit number");
             int semester = sem - (2 - (year - 1));
             years[year].addCourse(semester, course);
         }
         public void addSemester(Semester sem)
         {
+            if (!isLegalSemester(sem.Number()))
+                throw new DException("illegal semester number");
+            if (sem.Credit() > 10)
+                throw new DException("wrong credit number");
             int year = sem.Number() / 2;
             years[year].addSemester(sem);
         }
         public void addSemester(int sem)
         {
+            if (!isLegalSemester(sem))
+                throw new DException("illegal semester number");
             int year = sem / 2;
             years[year].addSemester(sem);
         }
@@ -97,6 +126,8 @@ namespace DM.Backend.BL
 
         public void deleteSemester(int sem)
         {
+            if (!isLegalSemester(sem))
+                throw new DException("illegal semester number");
             int year = sem / 2;
             years[year].deleteSemester(sem);
         }
@@ -136,6 +167,8 @@ namespace DM.Backend.BL
         }
         public void setGrade(string course, int grade)
         {
+            if (grade > 100)
+                throw new DException("grade number is too big");
             bool done = false;
             for (int i = 0; i <= years.Length; i++)
             {
@@ -157,7 +190,7 @@ namespace DM.Backend.BL
             this.donePrecents = Credit() / totalCredit;
         }
 
-        public void setAverage()
+        private void setAverage()
         {
             double sum = 0;
             int cred = 0;
@@ -178,6 +211,8 @@ namespace DM.Backend.BL
 
         public Semester getSemester(int sem)
         {
+            if (!isLegalSemester(sem))
+                throw new DException("illegal semester number");
             int year= sem / 2;
             int semester= (sem-1)% 2;
             return years[year].getSemester(semester);
@@ -217,5 +252,11 @@ namespace DM.Backend.BL
         public int Credit() => this.credit;
 
         public Year [] Years() => this.years;
+        public bool isLegalSemester(int sem)
+        {
+            if (sem > years.Length * 2)
+                return false;
+            return true;
+        }
     }
 }

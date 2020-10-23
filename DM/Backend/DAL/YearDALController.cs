@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DM.Backend.DAL
 {
-    class YearDALController : DALController
+    public class YearDALController : DALController
     {
 
         private const string YearTableName = "Year";

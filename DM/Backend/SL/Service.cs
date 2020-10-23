@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DM.Backend.SL
 {
-    class Service
+    public class Service
     {
         private UserService userService;
 

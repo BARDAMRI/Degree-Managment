@@ -8,7 +8,7 @@ using DM.Backend.DAL.DALO;
 
 namespace DM.Backend.DAL
 {
-    class StudentDALController : DALController
+    public class StudentDALController : DALController
     {
         private const string UserTableName = "Student";
 

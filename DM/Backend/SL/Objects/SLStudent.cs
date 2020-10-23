@@ -7,7 +7,7 @@ using DM.Backend.BL;
 
 namespace DM.Backend.SL.Objects
 {
-    class SLStudent
+    public class SLStudent
     {
         private readonly string name;
         private readonly string password;

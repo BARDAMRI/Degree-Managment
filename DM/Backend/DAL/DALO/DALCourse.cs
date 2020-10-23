@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DM.Backend.DAL.DALO
 {
-    class DALCourse:DALObj
+    public class DALCourse:DALObj
     {
 
         private string name;

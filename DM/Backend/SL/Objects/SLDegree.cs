@@ -8,16 +8,16 @@ using DM.Backend.BL;
 
 namespace DM.Backend.SL.Objects
 {
-    class SLDegree
+    public class SLDegree
     {
-        private readonly string name;
-        private Year[] years;
-        private readonly int credit;
-        private readonly double average;
-        private readonly double expectAverage;
-        private readonly double difference;
-        private readonly double donePrecents;
-        private readonly int totalCredit;
+        public readonly string name;
+        public Year[] years;
+        public readonly int credit;
+        public readonly double average;
+        public readonly double expectAverage;
+        public readonly double difference;
+        public readonly double donePrecents;
+        public readonly int totalCredit;
 
         internal SLDegree(string name, int credit, double average, double expectAverage, double difference, double donePrecents,int totalCredit, Year[] years)
 
@@ -28,7 +28,7 @@ namespace DM.Backend.SL.Objects
             this.expectAverage = expectAverage;
             this.difference = difference;
             this.donePrecents = donePrecents;
-            this.donePrecents = totalCredit;
+            this.totalCredit = totalCredit;
             this.years = years;
 
         }
@@ -39,7 +39,7 @@ namespace DM.Backend.SL.Objects
             else
             {
                 SLDegree degree = (SLDegree)obj;
-                if (degree.name == this.name & degree.credit == this.credit & degree.average == this.average & degree.expectAverage == this.expectAverage & degree.difference == this.difference & degree.donePrecents == this.donePrecents & degree.donePrecents == this.donePrecents)
+                if (degree.name == this.name & degree.credit == this.credit & degree.average == this.average & degree.expectAverage == this.expectAverage & degree.difference == this.difference & degree.donePrecents == this.donePrecents & degree.totalCredit == this.totalCredit)
                 {
                     if (this.years == null & degree.years == null||(this.years.Length == 0 & degree.years.Length == 0))
                         return true;

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DM.Backend.BL
 {
-    class UserController
+    public class UserController
     {
         private Dictionary<int, Student> users;
         Student logged;
@@ -21,6 +21,8 @@ namespace DM.Backend.BL
         {
             if (logged == null)
             {
+                if(!users.ContainsKey(id))
+                    throw new DException("user don't exists");
                 logged = users[id];
                 return logged;
             }
@@ -58,12 +60,19 @@ namespace DM.Backend.BL
         {
             if (isLegalId(id))
             {
-                users.Add(id, new Student(name, id, password));
+                if (isGoodInput(name,id,password))
+                    users.Add(id, new Student(name, id, password));
+                else
+                    throw new DException("bad input");
             }
+            else
+                throw new DException("user already exists");
         }
 
         public void startDegree(int id, int years, string name, int credits)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].startDegree(years, name,  credits);
 
@@ -72,6 +81,8 @@ namespace DM.Backend.BL
         }
         public void startDegree(int id, int years, string name, int expectedAvg, int credits)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].startDegree(years, name, expectedAvg, credits);
 
@@ -80,6 +91,8 @@ namespace DM.Backend.BL
         }
         public void addCourse(int id, int sem, Course course)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].addCourse(sem, course);
 
@@ -88,6 +101,8 @@ namespace DM.Backend.BL
         }
         public void addCourse(int id,  int sem, string name, int credit)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].addCourse(sem, name, credit);
 
@@ -97,6 +112,8 @@ namespace DM.Backend.BL
         }
         public void addCourse(int id,  int year, int sem, string name, int credit)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].addCourse(year, sem, name, credit);
 
@@ -105,6 +122,8 @@ namespace DM.Backend.BL
         }
         public void addCourse(int id, int year, int sem, Course course)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].addCourse(year, sem, course);
 
@@ -113,6 +132,8 @@ namespace DM.Backend.BL
         }
         public void addSemester(int id, Semester sem)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].addSemester(sem);
 
@@ -121,6 +142,8 @@ namespace DM.Backend.BL
         }
         public void addSemester(int id, int sem)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].addSemester(sem);
 
@@ -129,6 +152,8 @@ namespace DM.Backend.BL
         }
         public double getDifference(int id)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 return users[id].getDifference();
 
@@ -138,6 +163,8 @@ namespace DM.Backend.BL
         }
         public void deleteSemester(int id, int sem)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].deleteSemester(sem);
 
@@ -146,6 +173,8 @@ namespace DM.Backend.BL
         }
         public void deleteSemester(int id, Semester sem)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].deleteSemester(sem);
 
@@ -154,6 +183,8 @@ namespace DM.Backend.BL
         }
         public void deleteCourse(int id,  string name)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].deleteCourse(name);
 
@@ -162,6 +193,8 @@ namespace DM.Backend.BL
         }
         public void deleteCourse(int id, string password, Course cour)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].deleteCourse(cour);
 
@@ -170,6 +203,8 @@ namespace DM.Backend.BL
         }
         public void setGrade(int id, string password, string course, int grade)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 users[id].setGrade(course, grade);
 
@@ -179,6 +214,8 @@ namespace DM.Backend.BL
 
         public double getAverage(int id)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                return users[id].getAverage();
 
@@ -188,6 +225,8 @@ namespace DM.Backend.BL
         }
         public Semester getSemester(int id, string password, int sem)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 return users[id].getSemester(sem);
 
@@ -197,6 +236,8 @@ namespace DM.Backend.BL
         }
         public Course getCourse(int id, string password, Course cour)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 return users[id].getCourse(cour);
 
@@ -205,6 +246,8 @@ namespace DM.Backend.BL
         }
         public Course getCourse(int id, string password, string cour)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                 return users[id].getCourse(cour);
 
@@ -213,6 +256,8 @@ namespace DM.Backend.BL
         }
         public void setName(int id, string name)
         {
+            if (!isLegalId(id))
+                throw new DException("illegal id number");
             if (isLogged(id))
                  users[id].setName(name);
 
@@ -278,6 +323,14 @@ namespace DM.Backend.BL
                 else
                     return false;
             }
+        }
+        public bool isGoodInput(string name,int id,string pass)
+        {
+            if (!users.ContainsKey(id))
+                return false;
+            if (!isLegalId(id))
+                return false;
+            return true;
         }
     }
 }

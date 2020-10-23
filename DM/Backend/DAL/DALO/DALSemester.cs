@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DM.Backend.DAL.DALO
 {
-    class DALSemester:DALObj
+    public class DALSemester:DALObj
     {
         private int number;
         private int credit;

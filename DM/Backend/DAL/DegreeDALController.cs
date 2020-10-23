@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DM.Backend.DAL
 {
-    class DegreeDALController:DALController
+    public class DegreeDALController:DALController
     {
         private const string DegreeTableName = "Degree";
 

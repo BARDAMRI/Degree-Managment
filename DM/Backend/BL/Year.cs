@@ -5,7 +5,7 @@ using DM.Backend.BL;
 
 namespace DM.Backend.BL
 {
-    class Year
+    public class Year
     {
         private int number;
         private Semester [] semesters;

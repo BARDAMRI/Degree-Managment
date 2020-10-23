@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DM.Backend.BL
 {
-    class DException: Exception 
+    public class DException: Exception 
     {
         public DException()
         {

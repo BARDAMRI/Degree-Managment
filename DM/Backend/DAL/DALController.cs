@@ -9,7 +9,7 @@ using DM.Backend.DAL.DALO;
 
 namespace DM.Backend.DAL
 {
-    class DALController
+    public abstract class DALController
     {
         protected readonly string connectionString;
         private readonly string tableName;

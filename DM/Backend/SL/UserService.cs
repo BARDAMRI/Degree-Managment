@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DM.Backend.SL
 {
-    class UserService
+    public class UserService
     {
         private UserController userController;
 
@@ -21,7 +21,7 @@ namespace DM.Backend.SL
             {
                 userController.Register(name, id, password);
 
-                return new Response();
+                return new Response("Registered succesfully");
             }
             catch (DException e)
             {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DM.Backend.DAL.DALO
 {
-    class SemesterDALController : DALController
+    public class SemesterDALController : DALController
     {
         private const string SemsterTableName = "Semster";
 
