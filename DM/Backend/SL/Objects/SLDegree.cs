@@ -16,8 +16,9 @@ namespace DM.Backend.SL.Objects
         public readonly double average;
         public readonly double expectAverage;
         public readonly double difference;
-        public readonly double donePrecents;
         public readonly int totalCredit;
+        public readonly double donePrecents;
+        
 
         internal SLDegree(string name, int credit, double average, double expectAverage, double difference, double donePrecents,int totalCredit, Year[] years)
 
