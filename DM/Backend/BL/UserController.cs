@@ -30,6 +30,13 @@ namespace DM.Backend.BL
             }
             throw new DException("A user is already sighned in");
         }
+
+        internal void Reset()
+        {
+            logged = null;
+            users = new Dictionary<int, Student>();
+        }
+
         public void logout(int id)
         {
             if (logged.Id == id)
@@ -64,7 +71,7 @@ namespace DM.Backend.BL
             {
                 if (isGoodInput(name, id, password))
                 {
-                    stu.Insert(new DALStudent(name, password, id));
+                    stu.Insert(new DALStudent(name, id, password));
                     users.Add(id, new Student(name, id, password));
                 }
                 else
@@ -292,24 +299,24 @@ namespace DM.Backend.BL
             string sid = id.ToString();
             if (sid.Length == 9)
             {
-                string withoutfirst = sid.Substring(1);
+                Char[] chars = sid.ToCharArray();
                 int sum = 0;
-                for (int i = 1; i <= 8; i++)
+                for (int i = 0; i < chars.Length; i++)
                 {
-                    int b = (Convert.ToInt32(withoutfirst.ElementAt(i)));
-                    if (i % 2 != 0)
+                    int b = (Convert.ToInt32(chars[i].ToString()));
+                    if ((i+1) % 2 != 0)
                         sum += b;
                     else
                     {
                         if ((b * 2) >= 10)
                         {
-                            sum += ((b * 2) % 10) + ((b * 2) % 10);
+                            sum += ((b * 2) / 10) + ((b * 2) % 10);
                         }
                         else
                             sum += b * 2;
                     }
                 }
-                if (sum + Convert.ToInt32(sid.ElementAt(0)) % 10 == 0)
+                if (sum % 10 == 0)
                 {
                     return true;
                 }
@@ -349,7 +356,7 @@ namespace DM.Backend.BL
         }
         public bool isGoodInput(string name,int id,string pass)
         {
-            if (!users.ContainsKey(id))
+            if (users.ContainsKey(id))
                 return false;
             if (!isLegalId(id))
                 return false;

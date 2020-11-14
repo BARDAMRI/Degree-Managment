@@ -90,7 +90,7 @@ namespace DM.Backend.DAL
             using (var connection = new SQLiteConnection(connectionString))
             {
                 SQLiteCommand command = new SQLiteCommand(null, connection);
-                command.CommandText = $"select * from {tableName};";
+                command.CommandText = $"SELECT * FROM {tableName};";
                 SQLiteDataReader dataReader = null;
                 try
                 {

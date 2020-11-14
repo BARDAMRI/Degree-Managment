@@ -35,7 +35,24 @@ namespace DM.Backend.SL
             }
         }
 
-        internal Response DeleteData()
+        public Response Reset()
+        {
+            try
+            {
+                userController.Reset();
+                return new Response();
+            }
+            catch (DException e)
+            {
+                return new Response(e.Message);
+            }
+            catch (Exception e)
+            {
+                return new Response(e.Message);
+            }
+        }
+
+        public Response DeleteData()
         {
             try
             {
@@ -52,7 +69,7 @@ namespace DM.Backend.SL
             }
         }
 
-        internal Response LoadData()
+        public Response LoadData()
         {
             try
             {

@@ -25,6 +25,12 @@ namespace DM.Backend.SL
         {
             return userService.DeleteData();
         }
+
+        public Response Reset()
+        {
+            return userService.Reset();
+        }
+
         public Response Register(string name, int id, string password)
         {
             return userService.Register(name, id, password);

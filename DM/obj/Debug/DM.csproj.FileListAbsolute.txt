@@ -1,11 +1,8 @@
-C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\DM.dll
-C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\DM.pdb
-C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.csproj.CoreCompileInputs.cache
-C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.dll
-C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.pdb
 C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\x86\sqlite3.dll
 C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\x64\sqlite3.dll
 C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\DM.dll.config
+C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\DM.dll
+C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\DM.pdb
 C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\EntityFramework.dll
 C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\System.Data.SQLite.dll
@@ -15,5 +12,7 @@ C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\EntityFramework.xml
 C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\System.Data.SQLite.xml
 C:\Users\barda\source\repos\Degree-Managment\DM\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.csproj.CoreCompileInputs.cache
 C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.csproj.CopyComplete
-C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.csprojAssemblyReference.cache
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.dll
+C:\Users\barda\source\repos\Degree-Managment\DM\obj\Debug\DM.pdb

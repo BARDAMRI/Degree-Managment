@@ -11,8 +11,6 @@ namespace DM.Backend.DAL
     public class StudentDALController : DALController
     {
         private const string UserTableName = "Student";
-
-
         public StudentDALController() : base(UserTableName)
         {
 
@@ -23,9 +21,10 @@ namespace DM.Backend.DAL
             int res = 0;
             using (var connection = new SQLiteConnection(connectionString))
             {
+
                 SQLiteCommand command = new SQLiteCommand(null, connection);
                 {
-
+                    
                     try
                     {
                         command.CommandText = $"INSERT INTO {UserTableName} ({DALStudent.StudentNameColumn},{DALStudent.StudentPasswordColumn},{DALStudent.StudentIdColumn})" +
@@ -74,7 +73,7 @@ namespace DM.Backend.DAL
         }
         protected override DALObj ConvertReaderToObject(SQLiteDataReader reader)
         {
-            DALStudent ret = new DALStudent(reader.GetString(0), reader.GetString(1), reader.GetInt32(2));
+            DALStudent ret = new DALStudent(reader.GetString(0), reader.GetInt32(1), reader.GetString(2));
             return ret;
 
         }

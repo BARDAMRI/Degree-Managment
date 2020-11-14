@@ -20,12 +20,12 @@ namespace DM.Backend.DAL.DALO
         {
             this.name = name;
         }
-        public DALStudent(string name, string password,int id ) : base(new StudentDALController())
+        public DALStudent(string name,int id , string password) : base(new StudentDALController())
         {
 
             this.name = name;
             this.password = password;
-            this.Id = id;
+            this.id = id;
         }
         public string Name
         {
